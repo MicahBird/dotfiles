@@ -1,5 +1,5 @@
-#My Dotfiles
+# My Dotfiles
 
 ![meme](meme.jpg)
 
-##How to install
+## How to install
