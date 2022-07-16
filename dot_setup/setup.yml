@@ -1,0 +1,63 @@
+- name: "Install Software and Setup"
+  hosts: localhost
+  connection: local 
+  tasks:
+
+  - name: Install Packages
+    become: yes 
+    ansible.builtin.package:
+      name:
+        - kitty
+        - zsh
+        - nvim
+        - autojump
+        - zsh-syntax-highlighting
+        - zsh-autosuggestions
+        - cmus
+        # - imagemagick
+      state: latest
+
+  - name: Check Latest lf
+    uri:
+      url: https://api.github.com/repos/derailed/lf/releases/latest
+      return_content: true
+    register: lf_latest
+
+  - name: "Installing lf {{ lf_latest.json.tag_name }}"
+    loop: "{{ lf_latest.json.assets }}"
+    when: "'lf-linux-amd64.tar.gz' in item.name"
+    unarchive:
+      remote_src: yes
+      src: "{{ item.browser_download_url }}"
+      dest: "{{ ansible_env.HOME }}/.local/bin/"
+      keep_newer: yes
+
+  - name: Check Latest k9s
+    uri:
+      url: https://api.github.com/repos/derailed/k9s/releases/latest
+      return_content: true
+    register: k9s_latest
+
+  - name: "Installing k9s {{ k9s_latest.json.tag_name }}"
+    loop: "{{ k9s_latest.json.assets }}"
+    when: "'k9s_Linux_x86_64.tar.gz' in item.name"
+    unarchive:
+      remote_src: yes
+      src: "{{ item.browser_download_url }}"
+      dest: "{{ ansible_env.HOME }}/.local/bin/"
+      keep_newer: yes
+
+  - name: Check Latest onefetch
+    uri:
+      url: https://api.github.com/repos/o2sh/onefetch/releases/latest
+      return_content: true
+    register: onefetch_latest
+
+  - name: "Installing onefetch {{ onefetch_latest.json.tag_name }}"
+    loop: "{{ onefetch_latest.json.assets }}"
+    when: "'onefetch-linux.tar.gz' in item.name"
+    unarchive:
+      remote_src: yes
+      src: "{{ item.browser_download_url }}"
+      dest: "{{ ansible_env.HOME }}/.local/bin/"
+      keep_newer: yes

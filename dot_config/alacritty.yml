@@ -13,14 +13,13 @@ env:
   TERM: alacritty
 
 window:
-  dynamic_title: true
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
+  dimensions:
+    columns: 116
+    lines: 25
 
   # Window position (changes require restart)
   #
@@ -38,6 +37,9 @@ window:
   #   x: 2
   #   y: 2
 
+  decorations: full
+  startup_mode: Windowed
+  dynamic_title: true
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
 
@@ -243,8 +245,11 @@ selection:
 # Allow terminal applications to change Alacritty's window title.
 
 cursor:
-  style: Underline
+  style:
+    shape: Block
+    blinking: On
 
+  unfocused_hollow: false
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
   unfocused_hollow: true
@@ -262,11 +267,24 @@ live_config_reload: true
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
+# shell:
+#   program: /bin/zsh
+#   args:
+#     - --login
+shell:
+  program: /usr/bin/tmux # <- set this to the path of your tmux installation
+  # args:
+    # - new-session
+    # - -A
+    # - -D
+    # - -s
+    # - main
+# shell:
+#   program: /bin/zsh
+#   args:
+#     - -l
+#     - -c
+#     - "tmux attach || tmux"
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
@@ -333,7 +351,7 @@ mouse:
 #
 # - `mods` (see key bindings)
 mouse_bindings:
-  - { mouse: Middle, action: Copy }
+  - { mouse: Right, action: Copy }
 
 # Key bindings
 #
