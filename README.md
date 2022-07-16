@@ -9,7 +9,7 @@ This repo includes my configs for:
 - NeoVim
 
 ## How to install
-My dotfiles are managed with *****chezmoi**, so you just run one command to install chezmoi and apply my dotfiles
+My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles
 
 `sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply MicahBird`
 
