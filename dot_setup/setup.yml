@@ -19,7 +19,7 @@
 
   - name: Check Latest lf
     uri:
-      url: https://api.github.com/repos/derailed/lf/releases/latest
+      url: https://api.github.com/repos/gokcehan/lf/releases/latest
       return_content: true
     register: lf_latest
 
