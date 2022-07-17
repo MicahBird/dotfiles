@@ -9,7 +9,7 @@
       name:
         - kitty
         - zsh
-        - nvim
+        - neovim
         - autojump
         - zsh-syntax-highlighting
         - zsh-autosuggestions
