@@ -541,3 +541,5 @@ endif
 " Custom Configs
 set nohlsearch
 set scrolloff=8
+set shell=/usr/bin/zsh
+set shellcmdflag=-ic
