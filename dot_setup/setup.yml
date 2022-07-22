@@ -37,6 +37,8 @@
       url: https://api.github.com/repos/derailed/k9s/releases/latest
       return_content: true
     register: k9s_latest
+    tags:
+      - k9s
 
   - name: "Installing k9s {{ k9s_latest.json.tag_name }}"
     loop: "{{ k9s_latest.json.assets }}"
@@ -46,6 +48,9 @@
       src: "{{ item.browser_download_url }}"
       dest: "{{ ansible_env.HOME }}/.local/bin/"
       keep_newer: yes
+    tags:
+      - k9s
+
 
   - name: Check Latest onefetch
     uri:
