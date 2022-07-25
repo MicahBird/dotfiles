@@ -543,3 +543,13 @@ set nohlsearch
 set scrolloff=8
 set shell=/usr/bin/zsh
 set shellcmdflag=-ic
+" Don't save delete, change to register
+nnoremap d "_d
+vnoremap d "_d
+nnoremap c "_c
+nnoremap C "_C
+vnoremap c "_c
+vnoremap C "_C
+" nnoremap <leader>d "_d
+" xnoremap <leader>d "_d
+" xnoremap <leader>p "_dP
