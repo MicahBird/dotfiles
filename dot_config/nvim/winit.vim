@@ -80,7 +80,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'reedes/vim-pencil' 
 Plug 'reedes/vim-wordy'
 
-
 " This section are nice-to-haves for easier integration with machine, using vim-airline and such. 
 
 Plug 'vim-airline/vim-airline'
@@ -105,8 +104,14 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 Plug 'plasticboy/vim-markdown' 
 
+" Load global configs
+source ~/.config/nvim/global.vim
 
  call plug#end()
+
+let g:tq_enabled_backends=["openoffice_en"]
+let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
+let g:lexical#spell_key = '<leader>s'
 
 colorscheme pacific 
 set background=dark 
@@ -114,5 +119,3 @@ set background=dark
 if executable('rg')
     let g:rg_derive_root='true' 
 endif
-" Load global configs
-source ~/.config/nvim/global.vim

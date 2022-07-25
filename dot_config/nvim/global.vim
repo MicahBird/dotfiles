@@ -1,3 +1,6 @@
+"" Global plugins
+Plug 'jdhao/better-escape.vim'
+
 "" Copy/Paste/Cut
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus

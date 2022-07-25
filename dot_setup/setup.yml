@@ -17,6 +17,14 @@
         # - imagemagick
       state: latest
 
+  - name: Install pip Packages
+    become: yes 
+    ansible.builtin.pip:
+      name:
+        - pinvim
+      state: latest
+
+
   - name: Check Latest lf
     uri:
       url: https://api.github.com/repos/gokcehan/lf/releases/latest

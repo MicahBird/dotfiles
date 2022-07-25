@@ -103,6 +103,9 @@ if filereadable(expand("~/.config/nvim/local_bundles.vim"))
   source ~/.config/nvim/local_bundles.vim
 endif
 
+" Load global configs
+source ~/.config/nvim/global.vim
+
 call plug#end()
 
 " Required:
@@ -532,10 +535,3 @@ set nohlsearch
 set scrolloff=8
 set shell=/usr/bin/zsh
 set shellcmdflag=-ic
-
-" Load global configs
-source ~/.config/nvim/global.vim
-
-" nnoremap <leader>d "_d
-" xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
