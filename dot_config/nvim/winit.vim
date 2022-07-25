@@ -40,7 +40,7 @@ set smartindent
 set linebreak 
 set number
 set showmatch 
-set showbreak=+++
+" set showbreak=+++
 set smartcase
 set noswapfile 
 set undodir=~/.vim/undodir
@@ -114,10 +114,5 @@ set background=dark
 if executable('rg')
     let g:rg_derive_root='true' 
 endif
-" Don't save delete, change to register
-nnoremap d "_d
-vnoremap d "_d
-nnoremap c "_c
-nnoremap C "_C
-vnoremap c "_c
-vnoremap C "_C
+" Load global configs
+source ~/.config/nvim/global.vim

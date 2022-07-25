@@ -396,11 +396,6 @@ if has('autocmd')
   autocmd GUIEnter * set visualbell t_vb=
 endif
 
-"" Copy/Paste/Cut
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
-endif
-
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
@@ -422,12 +417,6 @@ noremap <leader>c :bd<CR>
 
 "" Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
-
-"" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -494,10 +483,10 @@ let python_highlight_all = 1
 "*****************************************************************************
 "*****************************************************************************
 
-"" Include user's local vim config
-if filereadable(expand("~/.config/nvim/local_init.vim"))
-  source ~/.config/nvim/local_init.vim
-endif
+" " Include user's local vim config
+" if filereadable(expand("~/.config/nvim/local_init.vim"))
+"   source ~/.config/nvim/local_init.vim
+" endif
 
 "*****************************************************************************
 "" Convenience variables
@@ -543,13 +532,10 @@ set nohlsearch
 set scrolloff=8
 set shell=/usr/bin/zsh
 set shellcmdflag=-ic
-" Don't save delete, change to register
-nnoremap d "_d
-vnoremap d "_d
-nnoremap c "_c
-nnoremap C "_C
-vnoremap c "_c
-vnoremap C "_C
+
+" Load global configs
+source ~/.config/nvim/global.vim
+
 " nnoremap <leader>d "_d
 " xnoremap <leader>d "_d
 " xnoremap <leader>p "_dP
