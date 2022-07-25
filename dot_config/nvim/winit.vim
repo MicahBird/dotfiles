@@ -70,7 +70,8 @@ Plug 'phanviet/vim-monokai-pro'
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 Plug 'gruvbox-community/gruvbox'
-
+   
+"   This is a selection of plugins to make prose writing easier. 
 
 Plug 'dpelle/vim-LanguageTool' 
 Plug 'ron89/thesaurus_query.vim' 
@@ -107,6 +108,8 @@ Plug 'plasticboy/vim-markdown'
 source ~/.config/nvim/global.vim
 
  call plug#end()
+" Custom Configs
+nnoremap <silent> <esc> :noh<cr><esc>
 
 let g:tq_enabled_backends=["openoffice_en"]
 let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
