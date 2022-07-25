@@ -22,7 +22,9 @@ setopt histignoredups
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -lah"
-alias icat="kitty +kitten icat"
+# alias icat="kitty +kitten icat"
+# Alias for wvim, neovim for writing
+alias wvim="nvim -u ~/.config/nvim/winit.vim"
 #Alt Key Binding
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
