@@ -18,12 +18,10 @@
       state: latest
 
   - name: Install pip Packages
-    become: yes 
     ansible.builtin.pip:
       name:
         - pinvim
       state: latest
-
 
   - name: Check Latest lf
     uri:
