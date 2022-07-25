@@ -71,7 +71,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 Plug 'gruvbox-community/gruvbox'
 
-"   This is a selection of plugins to make prose writing easier. 
 
 Plug 'dpelle/vim-LanguageTool' 
 Plug 'ron89/thesaurus_query.vim' 
@@ -112,6 +111,10 @@ source ~/.config/nvim/global.vim
 let g:tq_enabled_backends=["openoffice_en"]
 let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
 let g:lexical#spell_key = '<leader>s'
+
+map <F9> :Goyo <bar> <CR>
+
+map <F10> :TogglePencil <bar> <CR>
 
 colorscheme pacific 
 set background=dark 
