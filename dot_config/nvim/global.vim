@@ -24,6 +24,8 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
+"" Map P to paste on new line
+nnoremap P :pu<CR>
 " Don't save delete, change to register
 nnoremap d "_d
 vnoremap d "_d
