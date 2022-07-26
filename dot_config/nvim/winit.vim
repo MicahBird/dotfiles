@@ -79,6 +79,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim' 
 Plug 'reedes/vim-pencil' 
 Plug 'reedes/vim-wordy'
+Plug 'preservim/vim-lexical'
+Plug 'preservim/vim-litecorrect'
 
 " This section are nice-to-haves for easier integration with machine, using vim-airline and such. 
 
@@ -111,17 +113,50 @@ source ~/.config/nvim/global.vim
 " Custom Configs
 nnoremap <silent> <esc> :noh<cr><esc>
 
-let g:tq_enabled_backends=["openoffice_en"]
+set mouse=a
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+                            \ | call lexical#init()
+                            \ | call litecorrect#init()
+                            " \ | call textobj#quote#init()
+                            " \ | call textobj#sentence#init()
+augroup END
+
+let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "datamuse_com"]
 let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
+let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
+
+let user_dict = {
+  \ 'maybe': ['mabye'],
+  \ 'medieval': ['medival', 'mediaeval', 'medevil'],
+  \ 'then': ['hten'],
+  \ 'quote': ['qoute'],
+  \ 'Quote': ['Qoute'],
+  \ 'because': ['becase', 'becasue', 'beucase'],
+  \ }
+
 let g:lexical#spell_key = '<leader>s'
+let g:lexical#spelllang = ['en_us']
 
 map <F9> :Goyo <bar> <CR>
 
 map <F10> :TogglePencil <bar> <CR>
 
 colorscheme pacific 
-set background=dark 
+" Add toggle for colorscheme (incomplete)
+function! SetColorScheme()
+    if g:colors_name == 'pacific'
+        colorscheme gruvbox 
+        set background=light
+    else
+        set background=dark
+        colorscheme pacific 
+    endif
+endfunction
 
+set background=dark 
 if executable('rg')
     let g:rg_derive_root='true' 
 endif
