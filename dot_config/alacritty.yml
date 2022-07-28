@@ -271,16 +271,16 @@ live_config_reload: true
 #   program: /bin/zsh
 #   args:
 #     - --login
-shell:
-  program: /usr/bin/tmux # <- set this to the path of your tmux installation
+# shell:
+#   program: /usr/bin/tmux # <- set this to the path of your tmux installation
   # args:
     # - new-session
     # - -A
     # - -D
     # - -s
     # - main
-# shell:
-#   program: /bin/zsh
+shell:
+  program: /bin/zsh
 #   args:
 #     - -l
 #     - -c

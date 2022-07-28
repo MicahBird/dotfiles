@@ -17,6 +17,16 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'left' vi-backward-char
+bindkey -M menuselect 'down' vi-down-line-or-history
+bindkey -M menuselect 'up' vi-up-line-or-history
+bindkey -M menuselect 'right' vi-forward-char
+
 setopt histignoredups
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -25,6 +35,7 @@ alias ll="ls -lah"
 # alias icat="kitty +kitten icat"
 # Alias for wvim, neovim for writing
 alias wvim="nvim -u ~/.config/nvim/winit.vim"
+alias kssh="kitty +kitten ssh"
 #Alt Key Binding
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
