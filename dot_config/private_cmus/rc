@@ -1,4 +1,3 @@
-clear
+update-cache
 add ~/Music/Music Library/
-update-cache -f
 colorscheme gruvbox_redux
