@@ -140,6 +140,8 @@ let user_dict = {
 let g:lexical#spell_key = '<leader>s'
 let g:lexical#spelllang = ['en_us']
 
+map <F8> :call SetColorScheme() <bar> <CR>
+
 map <F9> :Goyo <bar> <CR>
 
 map <F10> :TogglePencil <bar> <CR>
