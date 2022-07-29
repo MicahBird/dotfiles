@@ -1,3 +1,6 @@
+set output_plugin=pulse
+set mpris=true
+set mouse=true
 update-cache
 add ~/Music/Music Library/
 colorscheme gruvbox_redux
