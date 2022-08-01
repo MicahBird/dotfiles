@@ -33,7 +33,7 @@ syntax on
 
 set noerrorbells "This removes vim's default error bell, turning it off so that it doesn't annoy us 
 set textwidth=0 
-set tabstop=4 softtabstop=4
+" set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent 
