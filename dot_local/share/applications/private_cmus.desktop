@@ -1,0 +1,22 @@
+[Desktop Entry]
+Comment[en_US]=Music
+Comment=Music
+Exec=cmus
+GenericName[en_US]=Music Player
+GenericName=Music Player
+Icon=elisa
+MimeType=
+Name[en_US]=cmus
+Name=cmus
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=true
+TerminalOptions=
+TryExec=cmus
+Type=Application
+Version=1.0
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

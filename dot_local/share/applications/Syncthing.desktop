@@ -1,0 +1,14 @@
+[Desktop Entry]
+Comment=Syncthing Terminal
+Exec=syncthing
+Icon=state-sync
+Name=Syncthing
+NoDisplay=false
+StartupNotify=true
+Terminal=true
+Type=Application
+Version=1.0
+StartupNotify=true
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+X-Desktop-File-Install-Version=0.26
