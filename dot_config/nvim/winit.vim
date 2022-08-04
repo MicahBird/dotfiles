@@ -113,8 +113,6 @@ source ~/.config/nvim/global.vim
 " Custom Configs
 nnoremap <silent> <esc> :noh<cr><esc>
 
-set mouse=a
-
 augroup pencil
   autocmd!
   autocmd FileType markdown,mkd call pencil#init()
