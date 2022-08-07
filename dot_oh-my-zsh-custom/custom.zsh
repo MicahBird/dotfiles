@@ -18,6 +18,9 @@ fi
 # For a full list of active aliases, run `alias`.
 # Persistent rehash
 zstyle ':completion:*' rehash true
+ 
+# Enable autosuggestions
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
