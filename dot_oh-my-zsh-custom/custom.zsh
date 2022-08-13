@@ -21,6 +21,9 @@ fi
 # Persistent rehash
 zstyle ':completion:*' rehash true
  
+# Disable Auto Updates
+zstyle ':omz:update' mode disabled
+
 # Enable autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
