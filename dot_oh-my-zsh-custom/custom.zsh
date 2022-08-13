@@ -39,7 +39,7 @@ setopt histignoredups
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -lah"
-# alias icat="kitty +kitten icat"
+alias icat="kitty +kitten icat"
 # Alias for wvim, neovim for writing
 alias wvim="nvim -u ~/.config/nvim/winit.vim"
 alias kssh="kitty +kitten ssh"
