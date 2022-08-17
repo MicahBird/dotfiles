@@ -82,6 +82,7 @@ Plug 'reedes/vim-pencil'
 Plug 'reedes/vim-wordy'
 Plug 'preservim/vim-lexical'
 Plug 'preservim/vim-litecorrect'
+Plug 'chrisbra/vim-autosave'
 
 " This section are nice-to-haves for easier integration with machine, using vim-airline and such. 
 
@@ -96,9 +97,12 @@ Plug 'thaerkh/vim-workspace'
 
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
-"Related to above, this is a activity tracker for vim
-
-" Plug 'wakatime/vim-wakatime'
+" Set autosave variables
+let g:autosave_extensions = '.backup'
+let g:autosave_backup     = '~/.vim/backup'
+let g:autosave_max_copies = 20
+" Autosave every 3 minutes
+let g:autosave_timer      = 60*3*1000
 
 "  This is for language-specific plugins 
 
@@ -111,15 +115,19 @@ source ~/.config/nvim/global.vim
 " Custom Configs
 nnoremap <silent> <esc> :noh<cr><esc>
 
+let g:pencil#wrapModeDefault = 'soft'
+
+" Autostart Scripts
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType * call pencil#init({'wrap': 'soft'})
                             \ | call lexical#init()
                             \ | call litecorrect#init()
                             " \ | call textobj#quote#init()
                             " \ | call textobj#sentence#init()
 augroup END
 
+" Thesaurus sources
 let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "datamuse_com"]
 let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
@@ -137,6 +145,10 @@ let user_dict = {
 
 let g:lexical#spell_key = '<leader>s'
 let g:lexical#spelllang = ['en_us']
+"
+" Custom Mappings
+
+nnoremap zs :ThesaurusQueryReplaceCurrentWord<CR>
 
 map <F8> :call SetColorScheme() <bar> <CR>
 
@@ -165,4 +177,3 @@ endif
 let g:pencil#textwidth = 0
 set textwidth=0 
 set wrapmargin=0
-set formatoptions-=t
