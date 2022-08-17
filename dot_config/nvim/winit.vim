@@ -33,8 +33,9 @@ syntax on
 
 set noerrorbells "This removes vim's default error bell, turning it off so that it doesn't annoy us 
 set textwidth=0 
-" set tabstop=4 softtabstop=4
-set shiftwidth=4
+set wrapmargin=0
+" set tabstop=0 softtabstop=0
+set shiftwidth=0
 set expandtab
 set smartindent 
 set linebreak 
@@ -99,12 +100,9 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 " Plug 'wakatime/vim-wakatime'
 
-" A disturbance in the force: we are using some emacs functionality here, org-mode specifically 
-" Plug 'jceb/vim-orgmode'
-
 "  This is for language-specific plugins 
 
-Plug 'plasticboy/vim-markdown' 
+" Plug 'plasticboy/vim-markdown' 
 
 " Load global configs
 source ~/.config/nvim/global.vim
@@ -130,6 +128,8 @@ let user_dict = {
   \ 'maybe': ['mabye'],
   \ 'medieval': ['medival', 'mediaeval', 'medevil'],
   \ 'then': ['hten'],
+  \ 'necciracry': ['necessary'],
+  \ 'thursday': ['Thursday'],
   \ 'quote': ['qoute'],
   \ 'Quote': ['Qoute'],
   \ 'because': ['becuase', 'becase', 'becasue', 'beucase'],
@@ -160,3 +160,9 @@ set background=dark
 if executable('rg')
     let g:rg_derive_root='true' 
 endif
+
+" No auto wrapping
+let g:pencil#textwidth = 0
+set textwidth=0 
+set wrapmargin=0
+set formatoptions-=t
