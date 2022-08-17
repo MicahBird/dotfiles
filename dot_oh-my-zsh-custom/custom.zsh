@@ -11,13 +11,7 @@ fi
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
     export MOZ_ENABLE_WAYLAND=1
 fi
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
 # Persistent rehash
 zstyle ':completion:*' rehash true
  
@@ -26,6 +20,9 @@ zstyle ':omz:update' mode disabled
 
 # Enable autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Enable autojump
+source /usr/share/autojump/autojump.bash
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -37,6 +34,32 @@ bindkey -M menuselect 'down' vi-down-line-or-history
 bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M visual '^[[P' vi-delete
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' '^ulfcd\n'
+
+bindkey -s '^a' '^ubc -lq\n'
+
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
+
+bindkey '^[[P' delete-char
+
+
 setopt histignoredups
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -45,6 +68,7 @@ alias ll="ls -lah"
 alias icat="kitty +kitten icat"
 # Alias for wvim, neovim for writing
 alias wvim="nvim -u ~/.config/nvim/winit.vim"
+alias nivm="nvim"
 alias kssh="kitty +kitten ssh"
 #Alt Key Binding
 bindkey "\e[1;3C" forward-word
