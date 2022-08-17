@@ -23,6 +23,11 @@
         - pynvim
       state: latest
 
+  - name: Make folder to make vim happy
+    ansible.builtin.file:
+      path: ~/.vim
+      state: directory
+          
   - name: Check Latest lf
     uri:
       url: https://api.github.com/repos/gokcehan/lf/releases/latest
