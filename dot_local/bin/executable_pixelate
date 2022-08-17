@@ -1,0 +1,2 @@
+#!/bin/sh
+convert -adaptive-resize 25% -scale 400% $1 pixelated-$1
