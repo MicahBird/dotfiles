@@ -20,7 +20,7 @@
   - name: Install pip Packages
     ansible.builtin.pip:
       name:
-        - pinvim
+        - pynvim
       state: latest
 
   - name: Check Latest lf
