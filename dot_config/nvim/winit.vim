@@ -120,6 +120,9 @@ let g:pencil#wrapModeDefault = 'soft'
 " Autostart Scripts
 augroup pencil
   autocmd!
+  autocmd VimEnter * call pencil#init({'wrap': 'soft'})
+                            \ | call lexical#init()
+                            \ | call litecorrect#init()
   autocmd FileType * call pencil#init({'wrap': 'soft'})
                             \ | call lexical#init()
                             \ | call litecorrect#init()
