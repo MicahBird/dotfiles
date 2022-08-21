@@ -29,6 +29,8 @@ set mouse=a
 
 "" Map P to paste on new line
 nnoremap P :pu<CR>
+" Map yW to yank rest of line
+nnoremap yW y$
 " Don't save delete, change to register
 nnoremap d "_d
 vnoremap d "_d
