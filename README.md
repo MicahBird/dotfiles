@@ -45,3 +45,12 @@ Before running the playbook, you need to replace the IP address, user, and passw
 To run the Windows setup playbook, run the following command:
 
 `ansible-playbook -i windows-hosts.ini windows-setup.yml`
+
+#### Disabling WinRM
+To disable WinRM after running the playbook, run the following commands in an Administrator Powershell. 
+```
+Stop-Service winrm
+Set-Service -Name winrm -StartupType Disabled
+winrm delete winrm/config/Listener?Address=*+Transport=HTTP
+winrm delete winrm/config/Listener?Address=*+Transport=HTTPS
+```
