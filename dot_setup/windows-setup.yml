@@ -1,0 +1,34 @@
+- name: "Install Software and Setup (Windows)"
+  hosts: windows
+  tasks:
+
+  - name: Install Main Programs
+    win_chocolatey:
+      name:
+      - mpv
+      - 7zip
+      - librewolf
+      - ungoogled-chromium
+      state: latest
+        
+  - name: Install Gaming Software
+    win_chocolatey:
+      name:
+      - polymc
+      state: latest
+    tags:
+      - games
+        
+  - name: Install Productivity Software
+    win_chocolatey:
+      name:
+      - nomacs
+      - gimp
+      state: latest
+    tags:
+      - tools
+
+  - name: Upgrade Installed Packages
+    win_chocolatey:
+      name: all
+      state: latest
