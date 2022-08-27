@@ -6,14 +6,15 @@ This repo includes my configs for:
 - ZSH
 - Kitty
 - Alacritty
+- cmus
 - NeoVim
 
-## How to install
-My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles
+## Installing My Dotfiles
+My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles:
 
 `sh -c "$(curl -fsLS chezmoi.io/get)" -- init -b $HOME/.local/bin --apply MicahBird`
 
-## Installing Programs
+## Using the Setup Playbook (UNIX Systems)
 Included with my dotfiles is a ansible playbook that installs some packages and downloads lf, k9s, and onefetch to your .local/bin/
 
 After installing Ansible, run the ansible playbook with the following commands:
@@ -21,3 +22,26 @@ After installing Ansible, run the ansible playbook with the following commands:
 cd .setup/
 ansible-playbook -K setup.yml
 ```
+
+## Running the Setup Playbook (Windows Systems)
+_The windows setup playbook currently doesn't set up a development environment, it just installs programs that I install with a fresh install._
+
+To run the Windows setup playbook, WinRM must be enabled. To enable it, open a Administrator Powershell and run the following commands to enable WinRM with HTTPS, using a self-signed certificate.
+
+```
+$url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+$file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+
+powershell.exe -ExecutionPolicy ByPass -File $file
+```
+
+### Writing the Hosts File
+Before running the playbook, you need to replace the IP address, user, and password in the windows-hosts.ini to suit your setup.
+
+### Running the Playbook
+
+To run the Windows setup playbook, run the following command:
+
+`ansible-playbook -i windows-hosts.ini windows-setup.yml`
