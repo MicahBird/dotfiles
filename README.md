@@ -38,10 +38,9 @@ powershell.exe -ExecutionPolicy ByPass -File $file
 ```
 
 ### Writing the Hosts File
-Before running the playbook, you need to replace the IP address, user, and password in the windows-hosts.ini to suit your setup.
+Before running the playbook, you need to replace the IP address, user, and password in the `windows-hosts.ini` to suit your setup.
 
 ### Running the Playbook
-
 To run the Windows setup playbook, run the following command:
 
 `ansible-playbook -i windows-hosts.ini windows-setup.yml`
