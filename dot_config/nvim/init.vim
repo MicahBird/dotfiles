@@ -1,5 +1,3 @@
-" vim-bootstrap 2022-06-19 19:09:09
-
 "*****************************************************************************
 "" Vim-Plug core
 "*****************************************************************************
@@ -120,7 +118,6 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-
 "" Fix backspace indent
 set backspace=indent,eol,start
 
@@ -170,9 +167,6 @@ colorscheme codedark
 " Better command line completion 
 set wildmenu
 
-" mouse support
-" set mouse=a
-
 " set mousemodel=popup
 " set t_Co=256
 " set guioptions=egmrti
@@ -191,7 +185,6 @@ set wildmenu
 "   let g:indentLine_concealcursor = ''
 "   let g:indentLine_char = '┆'
 "   let g:indentLine_faster = 1
-
   
 " endif
 
@@ -392,12 +385,6 @@ noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
-" if has('macunix')
-"   " pbcopy for OSX copy/paste
-"   vmap <C-x> :!pbcopy<CR>
-"   vmap <C-c> :w !pbcopy<CR><CR>
-" endif
-
 "" Buffer nav
 noremap <leader>z :bp<CR>
 noremap <leader>q :bp<CR>
@@ -418,7 +405,6 @@ nnoremap <Leader>o :.Gbrowse<CR>
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 
-
 " javascript
 let g:javascript_enable_domhtmlcss = 1
 
@@ -427,7 +413,6 @@ augroup vimrc-javascript
   autocmd!
   autocmd FileType javascript setl tabstop=4|setl shiftwidth=4|setl expandtab softtabstop=4
 augroup END
-
 
 " python
 " vim-python
@@ -511,5 +496,4 @@ endif
 " Custom Configs
 set nohlsearch
 set scrolloff=8
-set shell=/usr/bin/zsh
 set shellcmdflag=-ic

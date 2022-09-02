@@ -29,8 +29,17 @@ set mouse=a
 
 "" Map P to paste on new line
 nnoremap P :pu<CR>
+
 " Map yW to yank rest of line
 nnoremap yW y$
+
+" Enable Copy Paste on MacOS 
+if has('macunix')
+  " pbcopy for OSX copy/paste
+  vmap <C-x> :!pbcopy<CR>
+  vmap <C-c> :w !pbcopy<CR><CR>
+endif
+ 
 " Don't save delete, change to register
 nnoremap d "_d
 vnoremap d "_d
@@ -49,3 +58,6 @@ vmap > >gv
 "" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+"" Miscellaneous Configs
+set shell=/usr/bin/zsh
