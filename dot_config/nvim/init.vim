@@ -407,17 +407,6 @@ noremap <leader>w :bn<CR>
 "" Close buffer
 noremap <leader>c :bd<CR>
 
-"" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
-
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
-"" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
 "" Open current line on GitHub
 nnoremap <Leader>o :.Gbrowse<CR>
 
