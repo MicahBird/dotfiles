@@ -141,11 +141,11 @@ set smartcase
 
 set fileformats=unix,dos,mac
 
-if exists('$SHELL')
-    set shell=$SHELL
-else
-    set shell=/bin/sh
-endif
+" if exists('$SHELL')
+"     set shell=$SHELL
+" else
+"     set shell=/bin/sh
+" endif
 
 " session management
 let g:session_directory = "~/.config/nvim/session"
@@ -497,3 +497,5 @@ endif
 set nohlsearch
 set scrolloff=8
 set shellcmdflag=-ic
+" Show Quotes in JSON
+let g:vim_json_conceal=0
