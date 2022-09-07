@@ -1,5 +1,6 @@
 # Basic Settings
 set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/lf-kitty-clean
 set preview true
 set hidden true
 set drawbox true
