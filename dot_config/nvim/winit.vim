@@ -154,7 +154,12 @@ let user_dict = {
 let g:lexical#spell_key = '<leader>s'
 let g:lexical#spelllang = ['en_us']
 "
+" Quick Insert Mode Spelling Remap 
+" nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
 " Custom Mappings
+" Map [s and ]s to z as well
+nnoremap [z [s
+nnoremap ]z ]s
 
 nnoremap zs :ThesaurusQueryReplaceCurrentWord<CR>
 
