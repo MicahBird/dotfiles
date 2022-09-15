@@ -182,9 +182,14 @@ function! SetColorScheme()
 endfunction
 
 set background=dark 
+
 if executable('rg')
     let g:rg_derive_root='true' 
 endif
+
+" Custom Variables
+" Don't conceal markdown syntax
+set conceallevel=0
 
 " No auto wrapping
 let g:pencil#textwidth = 0
