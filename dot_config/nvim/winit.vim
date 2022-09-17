@@ -156,7 +156,7 @@ let g:lexical#spelllang = ['en_us']
 "
 " Quick Insert Mode Spelling Remap 
 " nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
-nnoremap <c-l> z=1<CR> 
+nnoremap <c-s> z=1<CR> 
 
 " Custom Mappings
 " Reload config
