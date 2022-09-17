@@ -156,7 +156,11 @@ let g:lexical#spelllang = ['en_us']
 "
 " Quick Insert Mode Spelling Remap 
 " nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
+nnoremap <c-l> z=1<CR> 
+
 " Custom Mappings
+" Reload config
+nnoremap <leader>sv :source ~/.config/nvim/winit.vim<CR>
 " Map [s and ]s to z as well
 nnoremap [z [s
 nnoremap ]z ]s
