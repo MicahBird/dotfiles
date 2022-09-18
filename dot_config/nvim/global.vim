@@ -1,6 +1,8 @@
 "" Global plugins
 Plug 'jdhao/better-escape.vim'
 Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-commentary'
 
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
