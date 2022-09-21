@@ -148,7 +148,7 @@ let user_dict = {
   \ 'Friday': ['friday'],
   \ 'quote': ['qoute'],
   \ 'Quote': ['Qoute'],
-  \ 'available': ['avalible'],
+  \ 'media': ['meida'],
   \ 'because': ['becuase', 'becase', 'becasue', 'beucase'],
   \ }
 
