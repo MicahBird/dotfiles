@@ -1,6 +1,7 @@
 "" Global plugins
 Plug 'jdhao/better-escape.vim'
 Plug 'tpope/vim-surround'
+Plug 'chrisbra/csv.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 

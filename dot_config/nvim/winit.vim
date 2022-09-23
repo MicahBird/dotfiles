@@ -139,6 +139,7 @@ let user_dict = {
   \ 'maybe': ['mabye'],
   \ 'medieval': ['medival', 'mediaeval', 'medevil'],
   \ 'then': ['hten'],
+  \ 'the': ['thr'],
   \ 'not': ['nto'],
   \ 'necciracry': ['necessary'],
   \ 'Monday': ['monday'],
