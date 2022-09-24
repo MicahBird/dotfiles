@@ -135,6 +135,9 @@ let g:tq_enabled_backends=["openoffice_en", "mthesaur_txt", "datamuse_com"]
 let g:tq_openoffice_en_file="/usr/share/mythes/th_en_US_v2"
 let g:tq_mthesaur_file="~/.config/nvim/thesaurus/mthesaur.txt"
 
+"*****************************************************************************
+"" Spelling Corrections
+"*****************************************************************************
 let user_dict = {
   \ 'maybe': ['mabye'],
   \ 'medieval': ['medival', 'mediaeval', 'medevil'],
@@ -159,6 +162,7 @@ let g:lexical#spelllang = ['en_us']
 " Quick Insert Mode Spelling Remap 
 " nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
 nnoremap <c-s> z=1<CR> 
+
 
 " Custom Mappings
 " Reload config
