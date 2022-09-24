@@ -453,6 +453,18 @@ let python_highlight_all = 1
 " endif
 
 "*****************************************************************************
+"" Yamllint
+"*****************************************************************************
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+set foldlevelstart=20
+
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+
+"*****************************************************************************
 "" Convenience variables
 "*****************************************************************************
 
@@ -491,6 +503,10 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+ 
+" Reload config
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
+
 " Custom Configs
 set nohlsearch
 set scrolloff=8
