@@ -197,6 +197,10 @@ if executable('rg')
     let g:rg_derive_root='true' 
 endif
 
+" Make searches case insensitive
+set ignorecase
+set smartcase
+
 " Custom Variables
 " Don't conceal markdown syntax
 set conceallevel=0
