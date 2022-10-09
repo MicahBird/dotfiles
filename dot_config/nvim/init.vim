@@ -46,6 +46,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'editor-bootstrap/vim-bootstrap-updater'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasiser/vim-code-dark'
+Plug 'ryanoasis/vim-devicons'
 
 
 if isdirectory('/usr/local/opt/fzf')
