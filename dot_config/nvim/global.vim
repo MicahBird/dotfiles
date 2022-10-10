@@ -1,4 +1,8 @@
 "" Global plugins
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
 Plug 'jdhao/better-escape.vim'
 Plug 'tpope/vim-surround'
 Plug 'chrisbra/csv.vim'
@@ -21,6 +25,18 @@ cnoreabbrev Qall qall
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
+
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 "" Switching windows
 noremap <C-j> <C-w>j
@@ -51,6 +67,9 @@ nnoremap c "_c
 nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
+
+" Better command line completion 
+set wildmenu
 
 "" Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>

@@ -32,8 +32,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -46,7 +44,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'editor-bootstrap/vim-bootstrap-updater'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'tomasiser/vim-code-dark'
-Plug 'ryanoasis/vim-devicons'
 
 
 if isdirectory('/usr/local/opt/fzf')
@@ -229,18 +226,6 @@ let g:airline_skip_empty_sections = 1
 "*****************************************************************************
 "" Abbreviations
 "*****************************************************************************
-
-"" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -444,7 +429,6 @@ let g:airline#extensions#virtualenv#enabled = 1
 let python_highlight_all = 1
 
 
-
 "*****************************************************************************
 "*****************************************************************************
 
@@ -512,5 +496,6 @@ nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
 set nohlsearch
 set scrolloff=8
 set shellcmdflag=-ic
+
 " Show Quotes in JSON
 let g:vim_json_conceal=0

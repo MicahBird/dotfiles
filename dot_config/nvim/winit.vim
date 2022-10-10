@@ -84,10 +84,6 @@ Plug 'preservim/vim-lexical'
 Plug 'preservim/vim-litecorrect'
 Plug 'chrisbra/vim-autosave'
 
-" This section are nice-to-haves for easier integration with machine, using vim-airline and such. 
-
-Plug 'vim-airline/vim-airline'
-
 "This section deals with workspace and session management 
 
 Plug 'thaerkh/vim-workspace'
@@ -163,7 +159,6 @@ let g:lexical#spelllang = ['en_us']
 " nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
 nnoremap <c-s> z=1<CR> 
 
-
 " Custom Mappings
 " Reload config
 nnoremap <leader>sv :source ~/.config/nvim/winit.vim<CR>
@@ -171,8 +166,10 @@ nnoremap <leader>sv :source ~/.config/nvim/winit.vim<CR>
 nnoremap [z [s
 nnoremap ]z ]s
 
+" Map zs to find synonyms of the current word
 nnoremap zs :ThesaurusQueryReplaceCurrentWord<CR>
 
+" Map F8 to switch to light theme
 map <F8> :call SetColorScheme() <bar> <CR>
 
 map <F9> :Goyo <bar> <CR>
@@ -180,6 +177,7 @@ map <F9> :Goyo <bar> <CR>
 map <F10> :TogglePencil <bar> <CR>
 
 colorscheme pacific 
+
 " Add toggle for colorscheme (incomplete)
 function! SetColorScheme()
     if g:colors_name == 'pacific'
