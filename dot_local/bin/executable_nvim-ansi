@@ -1,0 +1,4 @@
+#!/bin/sh
+cat - | awk '/^$/ {nlstack=nlstack "\n";next;} {printf "%s",nlstack; nlstack=""; print;}' > /tmp/buff
+nvim -u ~/.config/nvim/minimal.vim -c 'term tail -n 1000 /tmp/buff' -c 'nnoremap q :q!<CR>' -c 'map $ g_' + < /dev/tty
+echo '' > /tmp/buff
