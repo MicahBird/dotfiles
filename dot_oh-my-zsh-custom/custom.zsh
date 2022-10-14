@@ -21,6 +21,9 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Enable autojump
 source /usr/share/autojump/autojump.bash
 
+# Alternate Vim Aliases
+alias mvim="nvim -u ~/.config/nvim/minimal.vim"
+
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
@@ -31,7 +34,8 @@ bindkey -M menuselect 'down' vi-down-line-or-history
 bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 
-# Edit line in vim with ctrl-e:
+# Edit line in mvim with ctrl-e:
+export VISUAL="nvim -u ~/.config/nvim/minimal.vim -c 'nnoremap q :wq<CR>'"
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
@@ -56,6 +60,9 @@ bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
 
 bindkey '^[[P' delete-char
 
+fzf-history() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height "50%" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
 
 setopt histignoredups
 # Example aliases
