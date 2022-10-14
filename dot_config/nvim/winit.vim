@@ -102,7 +102,7 @@ let g:autosave_timer      = 60*3*1000
 
 "  This is for language-specific plugins 
 
-" Plug 'plasticboy/vim-markdown' 
+Plug 'plasticboy/vim-markdown' 
 
 " Load global configs
 source ~/.config/nvim/global.vim
@@ -110,6 +110,18 @@ source ~/.config/nvim/global.vim
  call plug#end()
 " Custom Configs
 nnoremap <silent> <esc> :noh<cr><esc>
+
+" Markdown Plugin Settings
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_override_foldtext = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_new_list_item_indent = 0
+
+" Markdown auto format tables
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
 
 let g:pencil#wrapModeDefault = 'soft'
 
@@ -159,9 +171,10 @@ let g:lexical#spelllang = ['en_us']
 " nnoremap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
 nnoremap <c-s> z=1<CR> 
 
-" Custom Mappings
+"" Custom Mappings
 " Reload config
 nnoremap <leader>sv :source ~/.config/nvim/winit.vim<CR>
+
 " Map [s and ]s to z as well
 nnoremap [z [s
 nnoremap ]z ]s
