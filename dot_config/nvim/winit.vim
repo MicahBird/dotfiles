@@ -82,7 +82,10 @@ Plug 'reedes/vim-pencil'
 Plug 'reedes/vim-wordy'
 Plug 'preservim/vim-lexical'
 Plug 'preservim/vim-litecorrect'
-Plug 'chrisbra/vim-autosave'
+Plug '907th/vim-auto-save' "auto saves files as you edit
+
+"  This is for language-specific plugins 
+Plug 'plasticboy/vim-markdown' 
 
 "This section deals with workspace and session management 
 
@@ -94,15 +97,9 @@ Plug 'thaerkh/vim-workspace'
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 " Set autosave variables
-let g:autosave_extensions = '.backup'
-let g:autosave_backup     = '~/.vim/backup'
-let g:autosave_max_copies = 20
-" Autosave every 3 minutes
-let g:autosave_timer      = 60*3*1000
+let g:auto_save = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
-"  This is for language-specific plugins 
-
-Plug 'plasticboy/vim-markdown' 
 
 " Load global configs
 source ~/.config/nvim/global.vim
