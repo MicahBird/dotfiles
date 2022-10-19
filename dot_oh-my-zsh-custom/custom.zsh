@@ -64,6 +64,8 @@ fzf-history() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height "50%" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 
+bindkey -s '^t' '^ufzf-history\n'
+
 setopt histignoredups
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
