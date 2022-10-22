@@ -45,6 +45,7 @@ set undodir=~/.vim/undodir
 set undofile
 set incsearch 
 set spell 
+set spellsuggest+=15 " This prevents spelling suggestions taking up the entire screen
 set showmatch 
 set confirm 
 set ruler 
@@ -94,6 +95,9 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'thaerkh/vim-workspace'
 
+" Languagetool Jar Location
+let g:languagetool_jar='$HOME/Documents/Programs/LanguageTool/languagetool-commandline.jar'
+
 "Related to above, the following code saves all session files in a single directory outside your
 "workspace
 
@@ -101,7 +105,7 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 " Set autosave variables
 let g:auto_save = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged"]
+let g:auto_save_events = ["InsertLeave"]
 
 
 " Load global configs
