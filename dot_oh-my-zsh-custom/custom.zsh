@@ -75,6 +75,8 @@ alias icat="kitty +kitten icat"
 # Alias for wvim, neovim for writing
 alias wvim="nvim -u ~/.config/nvim/winit.vim"
 alias nivm="nvim"
+# Color Alias for ip command
+alias ip="ip -c"
 alias kssh="kitty +kitten ssh"
 #Alt Key Binding
 bindkey "\e[1;3C" forward-word
