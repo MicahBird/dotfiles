@@ -91,6 +91,9 @@ Plug '907th/vim-auto-save' "auto saves files as you edit
 "  This is for language-specific plugins 
 Plug 'plasticboy/vim-markdown' 
 
+"  Plugin for markdown tables
+Plug 'dhruvasagar/vim-table-mode' 
+
 "This section deals with workspace and session management 
 
 Plug 'thaerkh/vim-workspace'
