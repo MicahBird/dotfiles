@@ -5,6 +5,7 @@ set preview true
 set hidden true
 set drawbox true
 set icons true
+set period 1
 set ignorecase true
 
 # Custom Functions
@@ -42,6 +43,8 @@ cmd mkdir ${{
   read ans
   mkdir $ans
 }}
+
+# cmd mkdir ${{ mkdir -p "$(echo $* | tr ' ' '\ ')" }}
 
 cmd mkfile ${{
   printf "File Name: "
@@ -208,6 +211,9 @@ map L bottom
 map R reload
 map C clear
 map U unselect
+
+# Map CTRL-F to search current dir with fzf
+map <c-f> $lf -remote "send $id select \"$(fzf)\""
 
 # Movement
 map gtr cd ~/.local/share/Trash/files
