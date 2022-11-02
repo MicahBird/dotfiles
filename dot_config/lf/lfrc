@@ -8,9 +8,31 @@ set icons true
 set ignorecase true
 
 # Custom Functions
+# cmd open ${{
+#     case $(file --mime-type "$(readlink -f $f)" -b) in
+# 	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+#         text/*|application/json|inode/x-empty) $EDITOR $fx;;
+#         text/plain) $EDITOR $fx;;
+# 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+# 	image/svg+xml) display -- $f ;;
+# 		setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+# 			[ -z "$file" ] && continue
+# 			lf -remote "send select \"$file\""
+# 			lf -remote "send toggle"
+# 		done &
+# 		;;
+# 	audio/*) mpv --audio-display=no $f ;;
+# 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+#         *) for f in $fx; do setsid -f xdg-open "$f" >/dev/null 2>&1; done;;
+#     esac
+# }}
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
+        text/markdown) nvim -u ~/.config/nvim/winit.vim  "$f";;
+        text/plain) nvim -u ~/.config/nvim/winit.vim  "$f";;
         text/*|application/json) $EDITOR "$f";;
+	audio/*) mpv --audio-display=no "$f" ;;
+	video/*) setsid -f mpv "$f" -quiet >/dev/null 2>&1 ;;
         *) xdg-open "$f" ;;
     esac
 }}
