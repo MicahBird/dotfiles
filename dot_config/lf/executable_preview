@@ -52,6 +52,6 @@ case "$1" in
 		ffmpegthumbnailer -i "$1" -o "$CACHE" -s 0
 		$HOME/.config/lf/image draw "$CACHE" $num 1 $numb $numc
 		;;
-	*) highlight --out-format ansi "$1" || cat "$1";;
+	*) highlight --out-format ansi "$1" || bat --terminal-width "$(($2))" -f "$1" ;;
 esac
 
