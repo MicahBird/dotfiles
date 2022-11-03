@@ -8,6 +8,7 @@ Plug 'tpope/vim-surround'
 Plug 'chrisbra/csv.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree'
 
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -25,6 +26,9 @@ cnoreabbrev Qall qall
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
+
+"" Undotree config
+let g:undotree_DiffAutoOpen = 0
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
