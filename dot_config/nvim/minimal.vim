@@ -1,9 +1,6 @@
-if !filereadable(vimplug_exists)
-  autocmd VimEnter * PlugInstall
-endif
-
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'jdhao/better-escape.vim'
+call plug#end()
 
 "" Copy/Paste/Cut
 if has('unnamedplus')
