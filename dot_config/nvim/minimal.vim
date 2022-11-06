@@ -41,3 +41,6 @@ nnoremap c "_c
 nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
+
+" Better command line completion 
+set wildmode=longest,list,full
