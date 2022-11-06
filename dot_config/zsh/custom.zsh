@@ -78,6 +78,8 @@ alias nivm="nvim"
 # Color Alias for ip command
 alias ip="ip -c"
 alias kssh="kitty +kitten ssh"
+# Alias chezmoi cd to keep current shell
+alias "chezcd"="cd $(chezmoi source-path)"
 #Alt Key Binding
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
