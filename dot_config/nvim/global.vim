@@ -73,7 +73,7 @@ vnoremap c "_c
 vnoremap C "_C
 
 " Better command line completion 
-set wildmenu
+set wildmode=longest,list,full
 
 "" Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
