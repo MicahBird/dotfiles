@@ -6,17 +6,18 @@
   - name: Update Packages (Ubuntu)
     when: ansible_distibition == "Ubuntu"
     become: yes
-      apt:
-        update_cache: yes
-        upgrade: yes
+    apt:
+      update_cache: yes
+      upgrade: yes
 
   - name: Install Minimal Packages
-    become: yes 
+    become: yes
     ansible.builtin.package:
       name:
         - sway
-        - waybar
         - swaylock
+        - swayidle
+        - waybar
         - wl-clipboard
         - mpv
         - ffmpeg
@@ -25,11 +26,11 @@
         - flatpak
       state: latest
 
-- name: Add the flathub flatpak repository remote
-  community.general.flatpak_remote:
-    name: flathub
-    state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  - name: Add the flathub flatpak repository remote
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
   - name: Install Flatpak Packages
   community.general.flatpak:
