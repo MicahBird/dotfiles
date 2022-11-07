@@ -12,7 +12,7 @@ This repo includes my configs for:
 ## Installing My Dotfiles
 My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles:
 
-`sh -c "$(curl -fsLS chezmoi.io/get)" -- init -b $HOME/.local/bin --apply MicahBird`
+`sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply MicahBird`
 
 ## Using the Setup Playbook (UNIX Systems)
 Included with my dotfiles is a ansible playbook that installs some packages and downloads lf, k9s, and onefetch to your .local/bin/
