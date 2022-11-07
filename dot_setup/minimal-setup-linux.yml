@@ -2,6 +2,7 @@
   hosts: localhost
   connection: local
   tasks:
+
     - name: Update Packages (Ubuntu)
       when: ansible_distibition == "Ubuntu"
       become: yes
