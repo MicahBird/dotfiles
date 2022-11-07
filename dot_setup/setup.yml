@@ -15,6 +15,7 @@
         - zsh-autosuggestions
         - cmus
         - yamllint
+        - fzf
         - bat
         - trash-cli
         # - imagemagick
