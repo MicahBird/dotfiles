@@ -18,6 +18,7 @@
           - swaylock
           - swayidle
           - waybar
+          - wofi
           - wl-clipboard
           - mpv
           - ffmpeg
