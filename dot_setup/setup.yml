@@ -18,7 +18,7 @@
         - fzf
         - bat
         - trash-cli
-        # - imagemagick
+        - imagemagick
       state: latest
 
   - name: Install pip Packages
