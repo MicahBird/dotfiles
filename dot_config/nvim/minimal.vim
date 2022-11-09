@@ -34,13 +34,19 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-" Don't save delete, change to register
+" Don't save delete, change to black hole register
 nnoremap d "_d
 vnoremap d "_d
 nnoremap c "_c
 nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
+
+"" Switching windows
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
 
 " Better command line completion 
 set wildmode=longest,list,full
