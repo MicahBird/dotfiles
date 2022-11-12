@@ -1,7 +1,7 @@
 xnoremap "+y y:call system("wl-copy", @")<cr>
 nnoremap "+p :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', '', 'g')<cr>p
 nnoremap "*p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
-:set number
+set number
 let @a = "/<body\<Enter>eaonload=\<Ctrl-v><Esc>setTimeout"
 let @q = 'i"'
 let @t='"Vim''s quote handling is a little tricky"'
