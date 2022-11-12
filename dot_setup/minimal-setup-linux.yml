@@ -4,7 +4,7 @@
   tasks:
 
     - name: Update Packages (Ubuntu)
-      when: ansible_distibition == "Ubuntu"
+      #      when: ansible_distibition == "Ubuntu"
       become: yes
       apt:
         update_cache: yes
@@ -17,10 +17,10 @@
           - sway
           - swaylock
           - swayidle
-          - waybar
-          - wofi
+          # - waybar
           - wl-clipboard
-          - brightnessctl
+          - slurp # Tools for screenshots
+          - grim # Tools for screenshots
           - mpv
           - ffmpeg
           - fonts-font-awesome
@@ -28,13 +28,13 @@
           - flatpak
         state: latest
 
-    - name: Add the flathub flatpak repository remote
-      community.general.flatpak_remote:
-        name: flathub
-        state: present
-        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-    - name: Install Flatpak Packages
-      community.general.flatpak:
-        name:
-          - io.gitlab.librewolf-community
+            - name: Add the flathub flatpak repository remote
+              community.general.flatpak_remote:
+                name: flathub
+                state: present
+                flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        
+            - name: Install Flatpak Packages
+              community.general.flatpak:
+                name:
+                  - io.gitlab.librewolf-community
