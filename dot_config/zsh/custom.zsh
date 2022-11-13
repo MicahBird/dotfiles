@@ -22,10 +22,13 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/autojump/autojump.bash
 
 # Alternate Vim Aliases
+## Alias for wvim, neovim for writing
 alias mvim="nvim -u ~/.config/nvim/minimal.vim"
-# Alias for wvim, neovim for writing
+## Alias for wvim, neovim for writing
 alias wvim="nvim -u ~/.config/nvim/winit.vim"
-# Alias for typo
+## Alias for gvim, opens git fugitive in the current dir
+alias gvim="nvim -c 'Git' ."
+## Alias for typo
 alias nivm="nvim"
 
 # Use vim keys in tab complete menu:
