@@ -23,6 +23,10 @@ source /usr/share/autojump/autojump.bash
 
 # Alternate Vim Aliases
 alias mvim="nvim -u ~/.config/nvim/minimal.vim"
+# Alias for wvim, neovim for writing
+alias wvim="nvim -u ~/.config/nvim/winit.vim"
+# Alias for typo
+alias nivm="nvim"
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -72,9 +76,6 @@ setopt histignoredups
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -lah"
 alias icat="kitty +kitten icat"
-# Alias for wvim, neovim for writing
-alias wvim="nvim -u ~/.config/nvim/winit.vim"
-alias nivm="nvim"
 # Color Alias for ip command
 alias ip="ip -c"
 alias kssh="kitty +kitten ssh"
