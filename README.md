@@ -3,11 +3,30 @@
 ![meme](meme.jpg)
 ---
 This repo includes my configs for:
-- ZSH
+- zsh
 - Kitty
+- Neovim
+- Sway
 - Alacritty
+- lf
 - cmus
-- NeoVim
+
+### Custom Functions/Aliases
+
+#### lfcd
+Pressing `CTRL + O` in a zsh session launches lf and changes directories . Look at `lfcd()`in `~/.config/zsh/custom.zsh` for more details
+
+#### wvim
+A Neovim config that is built for writing:
+Notable features: 
+ - `CTRL + S` corrects spelling on currently highlighted word without 
+ - `goyo.vim` corrects spelling on currently highlighted word without 
+
+#### mvim
+A minimal neovim configuration with bare essentials and sensible defaults.
+
+#### gvim
+An alias to quickly launch git fugitive in the current directory
 
 ## Installing My Dotfiles
 My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles:
