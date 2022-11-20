@@ -1,4 +1,4 @@
-Output wvim.gif
+Output ../images/wvim.gif
 
 Set Padding 20
 Set FontSize 16
