@@ -1,4 +1,4 @@
 README.md
-meme.jpg
+assets/
 .config/oh-my-zsh/cache/**
 !.config/oh-my-zsh/cache/.gitkeep
