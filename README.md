@@ -19,8 +19,8 @@ Pressing `CTRL + O` in a zsh session launches lf and changes directories . Look 
 #### wvim
 A Neovim config that is built for writing:
 Notable features: 
- - `CTRL + S` corrects spelling on currently highlighted word without 
- - `goyo.vim` corrects spelling on currently highlighted word without 
+ - `CTRL + S`: Replaces the highlighted word with the first spelling suggestion
+ - `zs`: Provides a synonym suggestions menu curious of [ron89/thesaurus_query.vim](https://github.com/ron89/thesaurus_query.vim)
 ![wvim demo gif](assets/images/wvim.gif)
 
 #### mvim
