@@ -1,6 +1,6 @@
 # My Dotfiles
 
-![meme](meme.jpg)
+![meme](assets/images/meme.jpg)
 ---
 This repo includes my configs for:
 - zsh
@@ -21,6 +21,7 @@ A Neovim config that is built for writing:
 Notable features: 
  - `CTRL + S` corrects spelling on currently highlighted word without 
  - `goyo.vim` corrects spelling on currently highlighted word without 
+![wvim demo gif](assets/images/wvim.gif)
 
 #### mvim
 A minimal neovim configuration with bare essentials and sensible defaults.
@@ -72,3 +73,7 @@ Set-Service -Name winrm -StartupType Disabled
 winrm delete winrm/config/Listener?Address=*+Transport=HTTP
 winrm delete winrm/config/Listener?Address=*+Transport=HTTPS
 ```
+
+## Credits
+
+Thanks to [charmbracelet/vhs](https://github.com/charmbracelet/vhs) for VHS to create the GIFs on this README!
