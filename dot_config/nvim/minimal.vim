@@ -16,6 +16,9 @@ set wrap
 "" Set mouse
 set mouse=a
 
+"" Map P to paste on new line
+nnoremap P :pu<CR>
+
 " Map yW to yank rest of line
 nnoremap yW y$
 
