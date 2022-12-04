@@ -73,6 +73,14 @@ fzf-history() {
 
 bindkey -s '^t' '^ufzf-history\n'
 
+# Lazy Load kubectl completion
+function kube() {
+  if [ $commands[kubectl] ]; then
+      source <(kubectl completion zsh)
+  fi
+  # omitted kubectl configuration code
+}
+
 setopt histignoredups
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
