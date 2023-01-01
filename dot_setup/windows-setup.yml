@@ -14,7 +14,7 @@
   - name: Install Gaming Software
     win_chocolatey:
       name:
-      - polymc
+      - prismlauncher
       state: latest
     tags:
       - games
