@@ -1,7 +1,20 @@
 - name: "Install Software and Setup"
   hosts: localhost
-  connection: local 
+  connection: local
   tasks:
+
+  - name: Add .local/bin to bashrc PATH
+    ansible.builtin.blockinfile:
+      path: ~/.bashrc
+      marker: "# Managed by Ansible"
+      insertafter: "EOF"
+      block: |
+        # User specific environment
+        if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+        then
+            PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+        fi
+        export PATH
 
   - name: Install Packages
     become: yes 
