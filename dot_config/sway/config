@@ -7,6 +7,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
+exec export XDG_CURRENT_DESKTOP=sway
 set $mod Mod4
 
 # Home row direction keys, like vim
@@ -22,6 +23,8 @@ set $term kitty
 focus_follows_mouse no
 # Your preferred application launcher
 set $menu tofi-drun | xargs swaymsg exec --
+# Spell Checker
+bindsym $mod+t exec tofi-spelling
 
 # Set Monitors
 set $pm HDMI-A-1
@@ -125,8 +128,8 @@ input "type:keyboard" {
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 # Emulate Alt-Tab?
-bindsym $mod+tab workspace next_on_output 
-bindsym $mod+Shift+tab workspace prev_on_output 
+bindsym $mod+Tab workspace next_on_output 
+bindsym $mod+Shift+Tab workspace prev_on_output 
 
 
 #
@@ -267,8 +270,6 @@ exec waybar
 exec nm-applet --indicator
 exec autotiling-rs
 exec playerctld daemon
-# Set env varaible for KDE Apps
-exec export XDG_CURRENT_DESKTOP=kde
 exec ~/.config/sway/scripts/autostart
 # bar {
 #     position top
@@ -287,3 +288,4 @@ exec ~/.config/sway/scripts/autostart
 # }
 
 include /etc/sway/config.d/*
+exec "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
