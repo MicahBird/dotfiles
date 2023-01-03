@@ -1,0 +1,4 @@
+#!/bin/sh
+WORD="$(echo "\n" | tofi --require-match=false --prompt-text "Enter Word: ")"
+
+dym -c $WORD | tofi --prompt-text "Select Correct Word" | tr -d \\n | wl-copy
