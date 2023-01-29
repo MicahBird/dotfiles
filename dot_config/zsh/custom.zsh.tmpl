@@ -12,6 +12,11 @@ if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
     export MOZ_ENABLE_WAYLAND=1
 fi
 
+{{ if eq .chezmoi.osRelease.idLike "debian" }}
+# Ubuntu Command Not Found
+source /etc/zsh_command_not_found  
+{{ end }}
+
 # Persistent rehash
 zstyle ':completion:*' rehash true
 
@@ -79,6 +84,18 @@ function kube() {
       source <(kubectl completion zsh)
   fi
   # omitted kubectl configuration code
+}
+
+countdown() {
+    start="$(( $(date +%s) + $1))"
+    while [ "$start" -ge $(date +%s) ]; do
+        ## Is this more than 24h away?
+        days="$(($(($(( $start - $(date +%s) )) * 1 )) / 86400))"
+        time="$(( $start - `date +%s` ))"
+        printf '%s day(s) and %s\r' "$days" "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 0.1
+    done
+    espeak "Times Up"
 }
 
 setopt histignoredups
