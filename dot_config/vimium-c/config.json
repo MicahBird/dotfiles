@@ -1,0 +1,44 @@
+{
+	"name": "Vimium C",
+	"@time": "2/28/2023, 11:01:26 PM",
+	"time": 1677625286901,
+	"environment": {
+		"extension": "1.99.97",
+		"platform": "linux",
+		"firefox": 110
+	},
+	"exclusionRules": [
+		{
+			"passKeys": "",
+			"pattern": ":https://mail.google.com/"
+		},
+		{
+			"passKeys": "/ j k ",
+			"pattern": ":https://duckduckgo.com/"
+		}
+	],
+	"extAllowList": "# None",
+	"keyLayout": 2,
+	"nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
+	"notifyUpdate": false,
+	"previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
+	"searchEngines": [
+		"g|go|gg|google|Google: https://www.google.com/search?q=%s \\",
+		"  www.google.com re=/^(?:\\.[a-z]{2,4})?\\/search\\b.*?[#&?]q=([^#&]*)/i\\",
+		"  blank=https://www.google.com/ Google",
+		"d|dd|ddg|duckduckgo: https://duckduckgo.com/?q=%s DuckDuckGo",
+		"",
+		"y|yt: https://www.youtube.com/results??search_query=%s \\",
+		"  blank=https://www.youtube.com/ YouTube",
+		"w|wiki: https://www.wikipedia.org/w/index.php?search=%s Wikipedia",
+		"",
+		"\\:i: vimium://sed/s/^//,lower\\ $S re= Lower case",
+		"v.m|math: vimium://math\\ $S re= Calculate",
+		"v.p: vimium://parse\\ $S re= Redo Search",
+		"gh|github: https://github.com/search?q=$s \\",
+		"  blank=https://github.com/ GitHub Repo",
+		""
+	],
+	"searchUrl": "https://duckduckgo.com/?q=$s duckduckgo",
+	"vimSync": false
+}
