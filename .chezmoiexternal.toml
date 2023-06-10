@@ -6,3 +6,12 @@
     type = "file"
     url = "https://raw.githubusercontent.com/woefe/git-prompt.zsh/master/git-prompt.zsh"
     refreshPeriod = "122742h"
+[".config/zsh/plugins/kubectl.plugin.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh"
+    refreshPeriod = "122742h"
+[".local/bin/pfetch"]
+    type = "file"
+    url = "https://github.com/dylanaraps/pfetch/raw/master/pfetch"
+    executable = true
+    refreshPeriod = "122742h"
