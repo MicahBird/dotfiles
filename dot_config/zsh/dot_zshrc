@@ -1,0 +1,152 @@
+# --- Source External Scripts ---
+
+# Command Not Found
+[ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
+
+# Autosuggestions
+[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Autojump
+[ -f "/usr/share/autojump/autojump.zsh" ] && source "/usr/share/autojump/autojump.zsh"
+
+# Git prompt
+[ -f "${ZDOTDIR}/plugins/git-prompt.zsh" ] && source "${ZDOTDIR}/plugins/git-prompt.zsh"
+ 
+# Load aliases if existent.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
+# Kubectl Aliases
+[ -f "${ZDOTDIR}/plugins/kubectl.plugin.zsh" ] && source "${ZDOTDIR}/plugins/kubectl.plugin.zsh"
+
+# Define Git Prompt Options
+ZSH_GIT_PROMPT_SHOW_UPSTREAM="no"
+
+ZSH_THEME_GIT_PROMPT_PREFIX="("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[green]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳ "
+ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[red]%}(%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX="%{$fg[red]%})"
+ZSH_THEME_GIT_PROMPT_BEHIND="↓"
+ZSH_THEME_GIT_PROMPT_AHEAD="↑"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}✖"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"
+ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}✚"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="…"
+ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
+
+# Prompt
+PS1='[%{$fg_bold[white]%}%n@%{$fg_bold[white]%}%m%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} $(gitprompt)%{$reset_color%}]$ '
+
+# --- Options ---
+autoload -U colors && colors	# Load colors
+setopt autocd		# Automatically cd into typed directory.
+setopt interactive_comments
+setopt histignoredups
+setopt share_history
+ 
+# Persistent rehash for installing new programs
+zstyle ':completion:*' rehash true
+
+# History in zsh directory:
+HISTSIZE=10000000
+SAVEHIST=10000000
+HISTFILE="${ZDOTDIR:-$HOME/.zsh}/history"
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+
+# --- Custom Functions ---
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+fzf-history() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height "50%" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+
+# --- VI Settings ---
+
+# Set Vi Mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+
+# Vim setup change inside anything
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
+# Surround Editing
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -M vicmd cs change-surround
+bindkey -M vicmd ds delete-surround
+bindkey -M vicmd ys add-surround
+bindkey -M visual S add-surround
+
+# --- Keybinds ---
+
+# Alt Key Binding for words
+bindkey "\e[1;3C" forward-word
+bindkey "\e[1;3D" backward-word
+# Alt+Backspace deletes word
+bindkey '\e^?' backward-kill-word
+
+# Set to WORDCHARS to empty to make Alt+Backspace to make more like Bash
+WORDCHARS=''
+ 
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'left' vi-backward-char
+bindkey -M menuselect 'down' vi-down-line-or-history
+bindkey -M menuselect 'up' vi-up-line-or-history
+
+bindkey -s '^o' '^ulfcd\n'
+bindkey '^[[P' delete-char
+bindkey -s '^t' '^ufzf-history\n'
