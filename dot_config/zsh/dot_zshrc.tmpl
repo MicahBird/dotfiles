@@ -1,7 +1,21 @@
 # --- Source External Scripts ---
 
-# Command Not Found
+{{ if eq .chezmoi.os "darwin" }}
+# Command Not Found (Homebrew - Macos)
+HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+if [ -f "$HB_CNF_HANDLER" ]; then
+source "$HB_CNF_HANDLER";
+fi
+
+{{ else if eq .chezmoi.os "linux" }}
+# Command Not Found (Linux)
 [ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
+
+{{ else }}
+# Command Not Found (Linux)
+[ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
+
+{{ end }}
 
 # Autosuggestions
 [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
