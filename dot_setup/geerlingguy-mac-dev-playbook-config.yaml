@@ -1,0 +1,111 @@
+---
+downloads: ~/.ansible_downloads
+
+configure_osx: true
+
+# Set to 'true' to configure the Dock via dockutil.
+configure_dock: true
+dockitems_remove:
+  - Launchpad
+  - TV
+  - Messages
+  - Safari
+  # - Mail
+  - Maps
+  - Photos
+  - FaceTime
+  - Notes
+  - Freeform
+  - Music
+  - News
+  - Keynote
+  - Numbers
+  - Pages
+  - 'App Store'
+
+dockitems_persist: []
+# - name: "Sublime Text"
+#   path: "/Applications/Sublime Text.app/"
+#   pos: 5
+
+configure_sudoers: false
+sudoers_custom_config: ''
+# Example:
+# sudoers_custom_config: |
+#   # Allow users in admin group to use sudo with no password.
+#   %admin ALL=(ALL) NOPASSWD: ALL
+
+homebrew_installed_packages:
+  # - ansible # Installed via Pip.
+  - htop
+  - synthing
+  - tmux
+  - neovim
+  - autojump
+  - zsh-autosuggestions
+  - cmus
+  # - yamllint
+  - fzf
+  - bat
+  - imagemagick
+  - ffmpeg
+  # Install other tools
+  - exiftool
+  - ripgrep
+  - tesseract
+  - tesseract-lang
+  - scrcpy
+  - espeak
+  - node
+  - jq
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+  - homebrew/command-not-found
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - firefox
+  - eloston-chromium
+  - gimp
+  - handbrake
+  - kitty
+  - obs
+  - speedcrunch
+  - quodlibet
+  - vlc
+
+osx_script: "~/.setup/osx-setup.sh"
+
+# Install packages from other package managers.
+# Note: You are responsible for making sure the required package managers are
+# installed, eg. through homebrew.
+composer_packages: []
+# - name: drush
+#   state: present # present/absent, default: present
+#   version: "^8.1" # default: N/A
+gem_packages: []
+# - name: bundler
+#   state: present # present/absent/latest, default: present
+#   version: "~> 1.15.1" # default: N/A
+npm_packages: []
+# - name: webpack
+#   state: present # present/absent/latest, default: present
+#   version: "^2.6" # default: N/A
+pip_packages:
+  - name: eyed3
+    state: latest  # present/absent/latest, default: present
+  - name: pynvim
+    state: latest  # present/absent/latest, default: present
+  - name: yt-dlp
+    state: latest  # present/absent/latest, default: present
+  - name: normcap
+    state: latest  # present/absent/latest, default: present
+
+# Set to 'true' to configure Sublime Text.
+configure_sublime: false
+sublime_base_path: ''
+
+# Glob pattern to ansible task files to run after all other tasks are finished.
+post_provision_tasks: []
