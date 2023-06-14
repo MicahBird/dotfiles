@@ -1,27 +1,50 @@
 # --- Source External Scripts ---
 
 {{ if eq .chezmoi.os "darwin" }}
+
 # Command Not Found (Homebrew - Macos)
 HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
 if [ -f "$HB_CNF_HANDLER" ]; then
 source "$HB_CNF_HANDLER";
 fi
 
+# Autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# Brew Autocomplete
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+# Autosuggestions
+[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
 {{ else if eq .chezmoi.os "linux" }}
+
 # Command Not Found (Linux)
 [ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
-
-{{ else }}
-# Command Not Found (Linux)
-[ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
-
-{{ end }}
 
 # Autosuggestions
 [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Autojump
 [ -f "/usr/share/autojump/autojump.zsh" ] && source "/usr/share/autojump/autojump.zsh"
+
+{{ else }}
+
+# Command Not Found (Linux)
+[ -f "/etc/zsh_command_not_found" ] && source "/etc/zsh_command_not_found"
+
+# Autosuggestions
+[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Autojump
+[ -f "/usr/share/autojump/autojump.zsh" ] && source "/usr/share/autojump/autojump.zsh"
+
+
+{{ end }}
+
 
 # Git prompt
 [ -f "${ZDOTDIR}/plugins/git-prompt.zsh" ] && source "${ZDOTDIR}/plugins/git-prompt.zsh"
