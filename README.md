@@ -7,6 +7,8 @@ This repo includes my configs for:
 - Kitty
 - Neovim
 - Sway
+- Yabai
+- skhd
 - Alacritty
 - lf
 - cmus
