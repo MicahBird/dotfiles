@@ -81,6 +81,21 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
 # Prompt
 PS1='[%{$fg_bold[white]%}%n@%{$fg_bold[white]%}%m%{$reset_color%} %{$fg[cyan]%}%~%{$reset_color%} $(gitprompt)%{$reset_color%}]$ '
 
+{{ if eq .chezmoi.os "darwin" }}
+
+# Add x86_64 prompt alias for Rosetta
+alias arch-x86="arch -x86_64 $SHELL"
+
+# Allow x86 and arm64 versions of Homebrew
+if [ "$(arch)" = "arm64" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
+    export PROMPT=\(x86_64\)\ $PROMPT
+fi
+
+{{ end }}
+
 # --- Options ---
 autoload -U colors && colors	# Load colors
 setopt autocd		# Automatically cd into typed directory.
@@ -166,6 +181,9 @@ bindkey -M vicmd cs change-surround
 bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
+
+# Use jk to escape
+bindkey -M viins 'jk' vi-cmd-mode
 
 # --- Keybinds ---
 
