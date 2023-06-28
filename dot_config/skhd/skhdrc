@@ -1,9 +1,54 @@
 ####### Shortcut Hotkeys #############
-# Open New Window in Exisiting Kitty Terminal
-alt - return : osascript -e 'tell application "System Events" to tell process "kitty" to click menu item "New OS Window" of menu "Shell" of menu bar 1'
 
-# Open New Window in Exisiting LibreWolf
-alt - n : osascript -e 'tell application "System Events" to tell process "LibreWolf" to click menu item "New Window" of menu "File" of menu bar 1'
+### Applications
+
+## Open New Window
+
+# Finder
+alt - q : osascript -e 'tell application "System Events" to tell process "Finder" to click menu item "New Finder Window" of menu "File" of menu bar 1'
+
+# LibreWolf
+alt - w : osascript -e 'tell application "System Events" to tell process "LibreWolf" to click menu item "New Window" of menu "File" of menu bar 1'
+
+# Chrome
+alt - e : osascript -e 'tell application "System Events" to tell process "Chrome" to click menu item "New Window" of menu "File" of menu bar 1'
+
+# (Music in open new instances)
+alt - a : osascript -e 'tell application "System Events" to tell process "LibreWolf" to click menu item "New Window" of menu "File" of menu bar 1'
+
+# Kitty
+alt - a : osascript -e 'tell application "System Events" to tell process "kitty" to click menu item "New OS Window" of menu "Shell" of menu bar 1'
+
+# Firefox
+alt - s : open /Applications/Firefox.app
+
+## Open New instances
+
+# Music
+alt - r : open /Applications/Museeks.app
+
+# Kitty
+alt - return : open -n /Applications/kitty.app
+
+# Thunderbird
+alt - d : open /Applications/Thunderbird.app
+
+## Focus Applications
+
+# LibreWolf
+fn - w : open /Applications/LibreWolf.app
+ 
+# Music
+fn - r : open /Applications/Chromium.app
+
+# Music
+fn - r : open /Applications/Museeks.app
+
+
+# -- System Shortcuts --
+
+# Sleep
+cmd - escape : osascript -e 'tell app "System Events" to sleep'
 
 # -- Changing Window Focus --
 
@@ -12,6 +57,11 @@ alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
+
+cmd - j : yabai -m window --focus south
+cmd - k : yabai -m window --focus north
+cmd - h : yabai -m window --focus west
+cmd - l : yabai -m window --focus east
 
 #change focus between external displays (left and right)
 alt - s: yabai -m display --focus west
@@ -29,15 +79,26 @@ shift + alt - y : yabai -m space --mirror y-axis
 shift + alt - x : yabai -m space --mirror x-axis
 
 # Float / Unfloat window
-alt - space : \
-    yabai -m window --toggle float; \
-    yabai -m window --toggle border
+alt - space : yabai -m window --toggle float
 
 
 # -- Modifying Window Size --
 
 # maximize a window
 alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Resize windows
+ctrl + shift + alt - h : yabai -m window --resize left:-50:0; \
+                 yabai -m window --resize right:-50:0
+ctrl + shift + alt - j : yabai -m window --resize bottom:0:50; \
+                 yabai -m window --resize top:0:50
+ctrl + shift + alt - k : yabai -m window --resize top:0:-50; \
+                 yabai -m window --resize bottom:0:-50
+ctrl + shift + alt - l : yabai -m window --resize right:50:0; \
+                 yabai -m window --resize left:50:0
+ 
+# Enable / Disable gaps in current workspace
+lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # balance out tree of windows (resize to occupy same area)
 shift + alt - e : yabai -m space --balance
@@ -66,7 +127,7 @@ shift + alt - p : yabai -m window --space prev;
 shift + alt - n : yabai -m window --space next;
 
 # Equalize size of windows
-alt - e : yabai -m space --balance
+shift + alt - space : yabai -m space --balance
 
 # move window to space # and focus it
 shift + alt - 1 : yabai -m window --space 1; index=1; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
@@ -78,10 +139,13 @@ shift + alt - 6 : yabai -m window --space 6; index=6; eval "$(yabai -m query --s
 shift + alt - 7 : yabai -m window --space 7; index=7; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 shift + alt - 8 : yabai -m window --space 8; index=8; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 shift + alt - 9 : yabai -m window --space 9; index=9; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
+shift + alt - 0 : yabai -m window --space 10; index=10; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 
+# Focus Space 10
+alt - 0 : index=10; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."native-fullscreen" == 0)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 # -- Starting/Stopping/Restarting Yabai --
 
 # stop/start/restart yabai
 ctrl + alt - q : yabai --stop-service && osascript -e 'display notification "Yabai has been stopped." with title "Yabai"'
 ctrl + alt - s : yabai --start-service && osascript -e 'display notification "Yabai has been started." with title "Yabai"'
-ctrl + alt - r : yabai --restart-service && osascript -e 'display notification "Yabai has been restarted." with title "Yabai"'
+ctrl + alt - r : yabai --restart-service && brew services restart sketchybar; osascript -e 'display notification "Yabai has been restarted." with title "Yabai"'
