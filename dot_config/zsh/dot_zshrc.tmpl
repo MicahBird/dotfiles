@@ -98,6 +98,8 @@ fi
 
 # --- Options ---
 autoload -U colors && colors	# Load colors
+autoload edit-command-line 
+zle -N edit-command-line
 setopt autocd		# Automatically cd into typed directory.
 setopt interactive_comments
 setopt histignoredups
@@ -132,6 +134,7 @@ lfcd () {
     fi
 }
 
+# Go through History with FZF
 fzf-history() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --height "50%" | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
@@ -193,8 +196,10 @@ bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
 # Alt+Backspace deletes word
 bindkey '\e^?' backward-kill-word
+# Edit line in mvim with ctrl-e:
+bindkey '^e' edit-command-line
 
-# Set to WORDCHARS to empty to make Alt+Backspace to make more like Bash
+# Set to WORDCHARS to empty to make Alt+Backspace behave more like Bash
 WORDCHARS=''
  
 # Use vim keys in tab complete menu:

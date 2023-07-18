@@ -22,6 +22,8 @@ unsetopt PROMPT_SP
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="kitty"
+# VISUAL uses minimal vim config
+export VISUAL="nvim -u ~/.config/nvim/minimal.vim -c 'nnoremap q :wq<CR>'"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
