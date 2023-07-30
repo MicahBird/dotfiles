@@ -24,17 +24,19 @@
           - mpv
           - ffmpeg
           - fonts-font-awesome
+          - hugo
+          - foot
           # - network-manager
           - flatpak
         state: latest
 
-            - name: Add the flathub flatpak repository remote
-              community.general.flatpak_remote:
-                name: flathub
-                state: present
-                flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    - name: Add the flathub flatpak repository remote
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
         
-            - name: Install Flatpak Packages
-              community.general.flatpak:
-                name:
-                  - io.gitlab.librewolf-community
+    - name: Install Flatpak Packages
+      community.general.flatpak:
+        name:
+          - io.gitlab.librewolf-community
