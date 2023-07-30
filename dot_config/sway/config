@@ -7,7 +7,6 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-exec export XDG_CURRENT_DESKTOP=sway
 set $mod Mod4
 
 # Home row direction keys, like vim
@@ -18,27 +17,19 @@ set $right l
 
 # Your preferred terminal emulator
 set $term kitty
-
-# Don't switch mouse focus
-focus_follows_mouse no
+ 
 # Your preferred application launcher
-set $menu tofi-drun | xargs swaymsg exec --
-# Spell Checker
-bindsym $mod+t exec tofi-spelling
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
+set $menu exec $term --class=launcher -e ~/.config/sway/sway-launcher-desktop.sh
 
-# Set Monitors
-set $pm HDMI-A-1
-set $sm DVI-D-1
-
-# Multi monitor Output
-output $pm pos 0 0 res 1920x1080@74.973Hz
-output $sm pos 1920 0 res 1920x1080
+include /etc/sway/config-vars.d/*
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output $pm bg ~/.local/share/wallpapers/monitor-1-wallpaper.svg fill
-output $sm bg ~/.local/share/wallpapers/monitor-2-wallpaper.svg fill
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -49,6 +40,7 @@ output $sm bg ~/.local/share/wallpapers/monitor-2-wallpaper.svg fill
 # Fix GTK+ Apps
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
+
 ### Idle configuration
 # Turn off display when lid is closed
 set $laptop eDP-1
@@ -56,12 +48,10 @@ bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
 exec swayidle -w \
-    timeout 900 'swaylock -f' 
-    # timeout 600 'swaymsg "output * dpms off"' \
-    #     resume  'swaymsg "output * dpms on"'  \
-    # before-sleep 'systemctl suspend'
-    # before-sleep 'playerctl pause'
-    # before-sleep 'swaylock'
+    timeout 300 'swaylock -f' \
+    timeout 600 'swaymsg "output * dpms off"' \
+        resume  'swaymsg "output * dpms on"'  \
+    before-sleep 'systemctl suspend'
 
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
@@ -76,21 +66,16 @@ exec swayidle -w \
 #
 # Example configuration:
 # To find the correct input device, check swaymsg -t get_inputs
-# input "2:7:SynPS/2_Synaptics_TouchPad" {
-#   dwt enabled
-#   tap enabled
-#   natural_scroll enabled
-#   middle_emulation enabled
-# }
-# Remap caps lock to Escape
-input "type:keyboard" {
-  xkb_options caps:escape
-  xkb_numlock enabled
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
 }
-
-# Set mouse cursor
-# seat seat0 xcursor_theme Adwaita 24
-
+# Remap caps lock to control
+input "type:keyboard" {
+  xkb_options ctrl:nocaps
+}
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -108,12 +93,6 @@ input "type:keyboard" {
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    # Bind mod + F1 to lock
-    bindsym $mod+F1 exec 'swaylock -f'
-
-    # Bind mod + escape to sleep
-    bindsym $mod+Escape exec 'playerctl pause; swaylock -f && systemctl suspend'
-
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -126,12 +105,6 @@ input "type:keyboard" {
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-
-# Emulate Alt-Tab?
-bindsym $mod+Tab workspace next_on_output 
-bindsym $mod+Shift+Tab workspace prev_on_output 
-
-
 #
 # Moving around:
 #
@@ -259,33 +232,26 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Take Screenshot and copy to clipboard with Shift+Printscreen
-bindsym Shift+Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
-
+bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-exec waybar
-exec nm-applet --indicator
-exec autotiling-rs
-exec playerctld daemon
-exec ~/.config/sway/scripts/autostart
-# bar {
-#     position top
+bar {
+    position top
 
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     # The default just shows the current date and time.
-#     # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-#     # status_command while ~/.config/sway/status.sh; do sleep 1; done
-#     # swaybar_command waybar -c ~/.config/waybar/test-config
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    status_command while ~/.config/sway/status.sh; do sleep 1; done
 
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
+    # swaybar_command waybar -c ~/.config/waybar/config
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
 
 include /etc/sway/config.d/*
-exec "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
