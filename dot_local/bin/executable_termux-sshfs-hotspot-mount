@@ -1,0 +1,3 @@
+#!/bin/bash
+PHONEIP=$(ip route | awk '/default/ {print $3}')
+sshfs -p 8022 user@$PHONEIP:/storage/emulated/0/"$1" sync/
