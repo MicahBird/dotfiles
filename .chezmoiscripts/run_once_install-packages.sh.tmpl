@@ -4,7 +4,7 @@ installWallpaperGenerator() {
     git clone https://github.com/MicahBird/wallpaper-generator-cli-cpp.git
     cd wallpaper-generator-cli-cpp
     make -j $(nproc)
-    mv wallpaper-generator-cli-cpp {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+    mv -f wallpaper-generator-cli {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
     chmod +x {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
     cd $TEMP_DIR
 }
@@ -18,7 +18,15 @@ cd $TEMP_DIR
 
 {{ else if eq .chezmoi.os "android" -}}
 pkg update
-pkg install clang git make termux-api -y
+# Install packages needed to build programs
+pkg install -y \
+    clang \
+    git \
+    make \
+    termux-api \
+    vim \
+    file 
+    
 installWallpaperGenerator
 
 {{ else if eq .chezmoi.os "darwin" -}}

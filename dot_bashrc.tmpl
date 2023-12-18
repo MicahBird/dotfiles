@@ -1,0 +1,12 @@
+{{ if eq .chezmoi.os "android" } }
+#!/bin/bash
+
+# Adds `~/.local/bin` to $PATH
+export PATH="$PATH:$HOME/.local/bin"
+
+# Load aliases if existent.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
+export EDITOR=vi
+
+{{ end }}
