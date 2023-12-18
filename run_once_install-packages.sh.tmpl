@@ -1,0 +1,35 @@
+#!/bin/bash
+
+installWallpaperGenerator() {
+    git clone https://github.com/MicahBird/wallpaper-generator-cli-cpp.git
+    cd wallpaper-generator-cli-cpp
+    make -j $(nproc)
+    mv wallpaper-generator-cli-cpp {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+    chmod +x {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+    cd $TEMP_DIR
+}
+
+# Clone repos of programs that need to be built
+TEMP_DIR=$(mktemp -d)
+cd $TEMP_DIR
+
+{{ if eq .chezmoi.os "linux" -}}
+# TODO
+
+{{ else if eq .chezmoi.os "android" -}}
+pkg update
+pkg install clang git make termux-api -y
+installWallpaperGenerator
+
+{{ else if eq .chezmoi.os "darwin" -}}
+# TODO
+
+{{ end -}}
+
+
+{{ if eq .chezmoi.os "android" -}}
+# Cleanup packages that are no longer needed
+pkg remove clang make -y
+
+{{ end -}}
+echo "Script finished successfully."
