@@ -27,8 +27,6 @@ alias \
 	trem="transmission-remote" \
 	YT="youtube-viewer" \
 	sdn="shutdown -h now" \
-	e="$EDITOR" \
-	v="$EDITOR" \
 	ll="ls -lah" \
 	icat="kitty +kitten icat" \
 	ip="ip -c" \
