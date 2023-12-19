@@ -36,5 +36,5 @@ alias \
 	"chezcd"="cd $(chezmoi source-path)" \
 	mvim="nvim -u ~/.config/nvim/minimal.vim" \
 	wvim="nvim -u ~/.config/nvim/winit.vim" \
-	gvim="nvim -c 'Git' ." \ 
+	gvim="nvim -c 'Git' ." \
 	nivm="nvim"
