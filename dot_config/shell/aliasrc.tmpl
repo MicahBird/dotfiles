@@ -1,0 +1,41 @@
+#!/bin/sh
+
+[ -f ~/.config/shell/personal ] && source ~/.config/shell/personal
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	rsync="rsync -vrPlu" \
+	mkd="mkdir -pv" \
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ytt="yt --skip-download --write-thumbnail" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	ls="ls -h --color=auto" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
+
+# These common commands are just too long! Abbreviate them.
+alias g="git" \
+        trem="transmission-remote" \
+        YT="youtube-viewer" \
+        sdn="shutdown -h now" \
+        e="$EDITOR" \
+        v="$EDITOR" \
+        ll="ls -lah" \
+        icat="kitty +kitten icat" \
+        ip="ip -c" \
+        kssh="kitty +kitten ssh" \
+        chezcd="cd {{.chezmoi.sourceDir}}" \
+        mvim="nvim -u ~/.config/nvim/minimal.vim" \
+        wvim="nvim -u ~/.config/nvim/winit.vim" \
+        gvim="nvim -c 'Git' ." \
+        nivm="nvim""
