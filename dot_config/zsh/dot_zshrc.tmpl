@@ -125,6 +125,9 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
+setopt MENU_COMPLETE    # Tab complete automatically uses first file
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Case insensitive tab complete
+
 
 
 # --- Custom Functions ---
