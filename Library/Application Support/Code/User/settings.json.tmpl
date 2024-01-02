@@ -1,1 +1,1 @@
-{{- template "vscode-settings.json" . -}}
+{{ if eq .chezmoi.os "darwin" }} {{- template "vscode-settings.json" . -}} {{ end }}

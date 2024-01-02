@@ -6,7 +6,6 @@
 //
 // This disables all of that stuff.
 // If you have more config, leave a comment so I can add it!!
-
 {
 	"clangd.checkUpdates": false,
 	"code-runner.enableAppInsights": false,
@@ -33,5 +32,20 @@
 	"terraform.telemetry.enabled": false,
 	"update.showReleaseNotes": false,
 	"vsicons.dontShowNewVersionMessage": true,
-	"workbench.welcomePage.walkthroughs.openOnInstall": false
+	"workbench.welcomePage.walkthroughs.openOnInstall": false,
+	"vscode-neovim.neovimInitVimPaths.darwin": "~/.config/nvim/minimal.vim",
+	"github.copilot.enable": {
+		"*": true,
+		"plaintext": false,
+		"markdown": false,
+		"scminput": false
+	},
+	"editor.minimap.enabled": false,
+	"extensions.experimental.affinity": {
+		"asvetliakov.vscode-neovim": 1
+	},
+	"files.autoSave": "onWindowChange",
+	"security.workspace.trust.untrustedFiles": "open",
+	"git.autofetch": true,
+	"explorer.confirmDelete": false
 }
