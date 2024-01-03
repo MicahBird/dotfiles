@@ -7,7 +7,6 @@ wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/Pictures/wallpaper-2.png
 wallpaper-generator-cli -r 2880x3120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
 termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
 {{ else if "~/.config/tablet"}}
-#!/data/data/com.termux/files/usr/bin/sh 
 wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png
 wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/lockscreen.png
 termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
