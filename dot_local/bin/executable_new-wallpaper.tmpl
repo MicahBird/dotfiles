@@ -1,0 +1,21 @@
+#!{{ lookPath "shell" }}
+{{ if eq .chezmoi.os "linux" -}}
+wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/Pictures/wallpaper-1.png
+wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/Pictures/wallpaper-2.png
+{{ else if eq .chezmoi.os "android" -}}
+{{ if "~/.config/phone" }}
+wallpaper-generator-cli -r 2880x3120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
+termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+{{ else if "~/.config/tablet"}}
+#!/data/data/com.termux/files/usr/bin/sh 
+wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png
+wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/lockscreen.png
+termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+termux-wallpaper -l -f {{ .chezmoi.homeDir }}/.config/lockscreen.png
+{{ else }}
+wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
+termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+{{ end }}
+{{ else if eq .chezmoi.os "darwin" -}}
+wallpaper-generator-cli -r 3840x2160 -o {{ .chezmoi.homeDir }}/Pictures/wallpaper.png
+{{ end -}}
