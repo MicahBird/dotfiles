@@ -1,12 +1,23 @@
-#!{{ lookPath "shell" }}
+#!{{ lookPath "sh" }}
 {{ if eq .chezmoi.os "linux" -}}
 wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/Pictures/wallpaper-1.png
 wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/Pictures/wallpaper-2.png
 {{ else if eq .chezmoi.os "android" -}}
-{{ if "~/.config/phone" }}
-wallpaper-generator-cli -r 2880x3120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
-termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
-{{ else if "~/.config/tablet"}}
+if [[ -f {{ .chezmoi.homeDir }}/.config/phone ]]; then
+   wallpaper-generator-cli -r 2880x3120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
+   termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+else
+  if [[ -f {{ .chezmoi.homeDir }}/.config/tablet ]]; then
+   wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png
+   wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/lockscreen.png
+   termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+   termux-wallpaper -l -f {{ .chezmoi.homeDir }}/.config/lockscreen.png
+  else
+  wallpaper-generator-cli -o {{ .chezmoi.homeDir }}/.config/homescreen.png 
+  termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
+  fi
+fi
+{{ else if chezmoi.FileExists "~/.config/tablet"}}
 wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/homescreen.png
 wallpaper-generator-cli -r 3200x5120 -o {{ .chezmoi.homeDir }}/.config/lockscreen.png
 termux-wallpaper -f {{ .chezmoi.homeDir }}/.config/homescreen.png
