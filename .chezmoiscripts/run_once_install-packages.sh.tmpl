@@ -14,7 +14,8 @@ TEMP_DIR=$(mktemp -d)
 cd $TEMP_DIR
 
 {{ if eq .chezmoi.os "linux" -}}
-# TODO
+
+installWallpaperGenerator
 
 {{ else if eq .chezmoi.os "android" -}}
 pkg update
