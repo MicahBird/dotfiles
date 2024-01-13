@@ -54,12 +54,6 @@ set autowriteall
 set undolevels=1000
 set backspace=indent,eol,start 
 
-" Set tab to be two spaces
-set autoindent
-set expandtab
-set tabstop=2
-set shiftwidth=2
-
 " The next two settings ensure that line breaks and wrap work how writers, not
 " coders, prefer it
 
@@ -222,6 +216,12 @@ set smartcase
 " Custom Variables
 " Don't conceal markdown syntax
 set conceallevel=0
+
+" Set tab to be two spaces
+set autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
 
 " No auto wrapping
 let g:pencil#textwidth = 0
