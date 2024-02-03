@@ -7,9 +7,8 @@
 
 {{ if eq .chezmoi.os "darwin" }}
 # Adds `~/.local/bin`, Homebrew, and Pip Packages to $PATH
-export PATH="$PATH:$HOME/.local/bin:/opt/homebrew/bin:${$(find ~/Library/Python -type d -name "bin"
+export PATH="$PATH:$HOME/.local/bin:/opt/homebrew/bin:${$(find ~/Library/Python -type d -name "bin")}"
 export JAVA_HOME=$(brew --prefix openjdk)
-)}"
 {{ else if eq .chezmoi.os "linux" }}
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
