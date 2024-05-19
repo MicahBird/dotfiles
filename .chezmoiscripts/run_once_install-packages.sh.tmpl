@@ -1,12 +1,16 @@
 #!{{ lookPath "bash" }}
 
 installWallpaperGenerator() {
-    git clone https://github.com/MicahBird/wallpaper-generator-cli-cpp.git
-    cd wallpaper-generator-cli-cpp
-    make -j $(nproc)
-    mv -f wallpaper-generator-cli {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
-    chmod +x {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
-    cd $TEMP_DIR
+    if [ -f {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli ]; then
+            echo "wallpaper-generator-cli appears to already be installed..."
+	else
+	    git clone https://github.com/MicahBird/wallpaper-generator-cli-cpp.git
+	    cd wallpaper-generator-cli-cpp
+	    make -j $(nproc)
+	    mv -f wallpaper-generator-cli {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+	    chmod +x {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+	    cd $TEMP_DIR
+        fi
 }
 
 # Clone repos of programs that need to be built
@@ -18,27 +22,48 @@ cd $TEMP_DIR
 installWallpaperGenerator
 
 {{ else if eq .chezmoi.os "android" -}}
+
 pkg update
-# Install packages needed to build programs
-pkg install -y \
-    clang \
-    git \
-    make \
-    termux-api \
-    vim \
-    file 
-    
-installWallpaperGenerator
+
+installBase() {
+    pkg install -y \
+        clang \
+        git \
+        make \
+        termux-api \
+        vim \
+        lf \
+        k9s \
+        python \
+        python-pip \
+        file 
+     python3 -m pip install --user pipx
+     pipx install buku
+}
+
+echo "Do you to install everything? (y/n): "
+read user_input
+
+# Check the user's input and proceed accordingly
+if [[ $user_input == "y" ]]; then
+    echo "Installing All Packages..."
+    pkg install -y \
+        neovim \
+        fzf 
+    installBase
+    installWallpaperGenerator
+else
+    echo "Installing Minimal Packages..."
+    installBase
+    installWallpaperGenerator
+fi
+
+# Cleanup packages that are no longer needed
+pkg remove clang make -y
 
 {{ else if eq .chezmoi.os "darwin" -}}
 # TODO
 
 {{ end -}}
 
-
-{{ if eq .chezmoi.os "android" -}}
-# Cleanup packages that are no longer needed
-pkg remove clang make -y
-
-{{ end -}}
 echo "Script finished successfully."
