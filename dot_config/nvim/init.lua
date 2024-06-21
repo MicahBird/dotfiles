@@ -10,8 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-local lazy = require 'lazy'
-lazy.setup({
+require('lazy').setup({
   'nvim-treesitter/nvim-treesitter',
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
@@ -36,16 +35,10 @@ lazy.setup({
     lazy = false,
   },
   "max397574/better-escape.nvim",
-
-  {
-    "jiaoshijie/undotree",
-    dependencies = "nvim-lua/plenary.nvim",
-    config = true,
-  },
-
+  'David-Kunz/gen.nvim',
+  'm4xshen/autoclose.nvim',
   { 'L3MON4D3/LuaSnip', build = "make install_jsregexp" },
   'stevearc/aerial.nvim',
-
   -- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
   'nvim-telescope/telescope-ui-select.nvim',
   {
@@ -64,8 +57,7 @@ lazy.setup({
     lazy = false,
   },
   {
-  'nvim-telescope/telescope.nvim', tag = '0.1.6',
--- or                              , branch = '0.1.x',
+    'nvim-telescope/telescope.nvim', tag = '0.1.6',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
@@ -77,7 +69,7 @@ lazy.setup({
             -- Configuration here, or leave empty to use defaults
         })
     end
-}
+  },
 })
 
 -- Shortcuts
@@ -90,39 +82,12 @@ local utils = require 'utils'
 -- QoL
 g.syntax_enable = false
 
-cmd("cnoreabbrev W! w!")
-cmd("cnoreabbrev Q! q!")
-cmd("cnoreabbrev Qall! qall!")
-cmd("cnoreabbrev Wq wq")
-cmd("cnoreabbrev Wa wa")
-cmd("cnoreabbrev wQ wq")
-cmd("cnoreabbrev WQ wq")
-cmd("cnoreabbrev W w")
-cmd("cnoreabbrev Q q")
-cmd("cnoreabbrev Qall qall")
-
-utils.map("n", "<C-j>", "<C-w>j")
-utils.map("n", "<C-k>", "<C-w>k")
-utils.map("n", "<C-l>", "<C-w>l")
-utils.map("n", "<C-h>", "<C-w>h")
---  Don't save delete, change to register
-utils.map("nv", 'd', '"_d')
-utils.map("nv", 'c', '"_c')
-utils.map("nv", 'C', '"_C')
--- Map P to paste on new line
-utils.map("n", "P", ":pu<CR>")
--- Map yW to yank rest of line
-utils.map("n","yW","y$")
--- Move visual block
-utils.map("v", "J", ":m '>+1<CR>gv=gv")
-utils.map("v", "K", ":m '<-2<CR>gv=gv")
--- Vmap for maintain Visual Mode after shifting > and <
-utils.map("v","<","<gv")
-utils.map("v",">",">gv")
-
 g.mapleader = ' '
+g.maplocalleader = ' '
 opt.mouse = 'a'
 opt.number = true
+-- Case insensitive search
+opt.ignorecase = true
 -- opt.relativenumber = true
 opt.signcolumn = 'number'
 opt.tabstop = 2
@@ -139,26 +104,21 @@ opt.updatetime = 250
 opt.smartcase = true
 opt.wrap = true
 opt.undofile = true
-
---
-
--- Reload Neovim
-utils.map("n", "<leader><leader>r", ":source $MYVIMRC<CR>")
-
-cmd("colorscheme vscode")
-vim.o.background = "dark"
+cmd("set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/")
 
 -- Load Plugins
-require('undotree').setup()
 utils.map("n", "<leader>u", "<cmd>lua require('undotree').toggle()<cr>")
 require('lualine').setup {
   options = {
     theme = 'vscode'
-    -- ... your lualine config
   }
 }
 require('better_escape').setup()
-
+require("autoclose").setup()
+-- disable netrw 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require('nvim-tree').setup({ actions = { open_file = { quit_on_open = true, }, }, })
 require 'treesitter'
 
 -- Auto-Completion
@@ -239,6 +199,67 @@ telescope.setup({
 })
 telescope.load_extension('ui-select')
 -- telescope.load_extension('frecency')
+
+-- **Keybinds**
+cmd("cnoreabbrev W! w!")
+cmd("cnoreabbrev Q! q!")
+cmd("cnoreabbrev Qall! qall!")
+cmd("cnoreabbrev Wq wq")
+cmd("cnoreabbrev Wa wa")
+cmd("cnoreabbrev wQ wq")
+cmd("cnoreabbrev WQ wq")
+cmd("cnoreabbrev W w")
+cmd("cnoreabbrev Q q")
+cmd("cnoreabbrev Qall qall")
+
+-- Switching windows
+utils.map("n", "<C-j>", "<C-w>j")
+utils.map("n", "<C-k>", "<C-w>k")
+utils.map("n", "<C-l>", "<C-w>l")
+utils.map("n", "<C-h>", "<C-w>h")
+-- Splits
+utils.map("n", "<leader>v", ":vsp<CR>")
+utils.map("n", "<leader>h", ":sp<CR>")
+-- Set working directory
+utils.map("n", "<leader>.", ":lcd %:p:h<CR>")
+-- Open File Tree
+utils.map("n", "<leader>e", ':NvimTreeOpen<CR>')
+-- Opens an edit command with the path of the currently edited file filled in
+utils.map("n", "<leader>E", ':e <C-R>=expand("%:p:h") . "/" <CR>')
+-- terminal emulation
+utils.map("n", "<leader>sh", ":terminal<CR>")
+-- Remove trailing whitespaces
+vim.api.nvim_create_user_command('FixWhitespace', function()
+    vim.cmd([[%s/\s\+$//e]])
+end, {})
+vim.api.nvim_set_keymap('n', '<leader>W', ':FixWhitespace<CR>', { noremap = true, silent = true })
+--  Don't save delete, change to register
+utils.map("nv", 'd', '"_d')
+utils.map("nv", 'D', '"_D')
+utils.map("nv", 'c', '"_c')
+utils.map("nv", 'C', '"_C')
+utils.map("nv", 'x', '"_x')
+utils.map("nv", 'X', '"_X')
+utils.map("nv", 's', '"_s')
+utils.map("nv", 'S', '"_S')
+utils.map("nv", '<leader>d', 'd') -- Keep a cut
+-- Map P to paste on new line
+utils.map("n", "P", ":pu<CR>")
+-- Map yW to yank rest of line
+utils.map("n","yW","y$")
+-- Move visual block
+utils.map("v", "J", ":m '>+1<CR>gv=gv")
+utils.map("v", "K", ":m '<-2<CR>gv=gv")
+-- Vmap for maintain Visual Mode after shifting > and <
+utils.map("v","<","<gv")
+utils.map("v",">",">gv")
+-- Remove Search Highlighting after pressing escape
+utils.map("n","<esc>",":noh<cr><esc>")
+-- Reload Neovim
+utils.map("n", "<leader><leader>r", ":source $MYVIMRC<CR>")
+
+cmd("colorscheme vscode")
+vim.o.background = "dark"
 
 utils.map("n", "<leader>f", ":Telescope find_files<CR>")
 utils.map("n", "<leader>g", ":Telescope live_grep<CR>")
