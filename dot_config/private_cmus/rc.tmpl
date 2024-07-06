@@ -1,5 +1,10 @@
+{{ if eq .chezmoi.os "darwin" }}
+set output_plugin=ao
+set softvol=true
+{{ else if eq .chezmoi.os "linux" }}
 set output_plugin=pulse
 set mpris=true
+{{ end }}
 set mouse=true
 update-cache
 add ~/Music/Music Library/
