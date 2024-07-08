@@ -37,6 +37,7 @@ require('lazy').setup({
   "max397574/better-escape.nvim",
   'David-Kunz/gen.nvim',
   'm4xshen/autoclose.nvim',
+  'mbbill/undotree',
   { 'L3MON4D3/LuaSnip', build = "make install_jsregexp" },
   'stevearc/aerial.nvim',
   -- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
@@ -52,7 +53,8 @@ require('lazy').setup({
   {
     'numToStr/Comment.nvim',
     opts = {
-        -- add any options here
+        -- ignores empty lines
+        ignore = '^$'
     },
     lazy = false,
   },
@@ -261,6 +263,7 @@ utils.map("n", "<leader><leader>r", ":source $MYVIMRC<CR>")
 cmd("colorscheme vscode")
 vim.o.background = "dark"
 
+utils.map("nv", "<leader>u", ":UndotreeToggle<CR>")
 utils.map("n", "<leader>f", ":Telescope find_files<CR>")
 utils.map("n", "<leader>g", ":Telescope live_grep<CR>")
 utils.map("n", "<leader>t", ":Telescope treesitter<CR>")
