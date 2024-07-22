@@ -5,8 +5,8 @@ local settings = require("settings")
 local thresholds = {
 	-- default color green will be returned if count is less than the first threshold
 	[3] = colors.yellow,
-	[5] = colors.orange,
-	[10] = colors.red,
+	[10] = colors.orange,
+	[20] = colors.red,
 }
 
 local brew = sbar.add("item", "widgets.brew", {

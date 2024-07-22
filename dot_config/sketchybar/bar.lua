@@ -1,12 +1,9 @@
 local colors = require("colors")
+local settings = require("settings")
 
 -- Equivalent to the --bar domain
 
-local monitorCheck = io.popen("system_profiler SPDisplaysDataType | grep -B 3 'Main Display:' | awk '/Display Type/ {print $3}'")
-local result = monitorCheck:read("*a")
-monitorCheck:close()
-
-if result == 'Built-in\n' then
+if settings.monitorCheck == 'Built-in\n' then
   print("Main display detected.")
   sbar.bar({
     topmost = "window",

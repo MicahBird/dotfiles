@@ -5,7 +5,13 @@ local app_icons = require("helpers.app_icons")
 
 local spaces = {}
 
-for i = 1, 11, 1 do
+local n = 12
+
+if settings.monitorCheck ~= 'Built-in\n' then
+  n = 19
+end
+
+for i = 1, n, 1 do
   local space = sbar.add("space", "space." .. i, {
     space = i,
     icon = {
