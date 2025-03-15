@@ -1,17 +1,8 @@
-[".config/nvim/autoload/plug.vim"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    refreshPeriod = "122742h"
+# Crucial to lock these to certain hashes
 [".config/zsh/plugins/git-prompt.zsh"]
     type = "file"
-    url = "https://raw.githubusercontent.com/woefe/git-prompt.zsh/master/git-prompt.zsh"
+    url = "https://raw.githubusercontent.com/woefe/git-prompt.zsh/7d82f00a5c2dbf6d2a29b56c84f3ce70ad108d68/git-prompt.zsh"
     refreshPeriod = "122742h"
 [".config/zsh/plugins/kubectl.plugin.zsh"]
     type = "file"
-    url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh"
-    refreshPeriod = "122742h"
-[".local/bin/pfetch"]
-    type = "file"
-    url = "https://github.com/dylanaraps/pfetch/raw/master/pfetch"
-    executable = true
-    refreshPeriod = "122742h"
+    url = "https://github.com/ohmyzsh/ohmyzsh/raw/bc42097900e296a20f979b4ab836d4fd07670778/plugins/kubectl/kubectl.plugin.zsh"
