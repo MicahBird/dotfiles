@@ -110,6 +110,7 @@
         - flatpak
         - flatpak-xdg-utils
         - xdg-desktop-portal
+        - openssh-server
       state: latest
 
   # Install other packages not available in the default Ubuntu repos
@@ -153,7 +154,7 @@
     when: ansible_os_family == "Debian"
     become: yes
     ansible.builtin.apt_repository:
-      repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ all main'
+      repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /'
       filename: kubernetes.list
 
   - name: Ensure Helm gpg key is in place
