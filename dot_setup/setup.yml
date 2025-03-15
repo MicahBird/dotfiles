@@ -28,7 +28,6 @@
     become: yes 
     ansible.builtin.package:
       name:
-        - node
         - python3
         - zsh-autosuggestions
         - htop
@@ -52,7 +51,6 @@
         - gcc
         - cmake
         - make
-        - rust
         - cargo
         # CLI Tools
         - cmus
@@ -65,11 +63,9 @@
         - ripgrep
         - scrcpy
         - espeak
-        - lf
         - aria2
         - p7zip
         - hugo
-        - dua-cli
         - tree
         - zstd
         - rclone
@@ -107,6 +103,7 @@
     when: ansible_os_family == "Debian"
     ansible.builtin.apt:
       name:
+        - nodejs
         - build-essential
         - default-jdk
         - libimage-exiftool-perl
@@ -118,6 +115,7 @@
   # Install other packages not available in the default Ubuntu repos
   - name: Ensure /etc/apt/keyrings directory exists
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.file:
       path: /etc/apt/keyrings
       state: directory
@@ -126,6 +124,7 @@
 
   - name: Ensure Visual Studio Code gpg key is in place
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.get_url:
       url: 'https://packages.microsoft.com/keys/microsoft.asc'
       dest: /etc/apt/keyrings/packages.microsoft.asc
@@ -135,12 +134,14 @@
 
   - name: Ensure Visual Studio Code repository exists
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.apt_repository:
       repo: 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main'
       filename: vscode.list
 
   - name: Ensure K8s gpg key is in place
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.get_url:
       url: 'https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key'
       dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -150,12 +151,14 @@
 
   - name: Ensure K8s repository exists
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.apt_repository:
       repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /'
       filename: kubernetes.list
 
   - name: Ensure Helm gpg key is in place
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.get_url:
       url: 'https://baltocdn.com/helm/signing.asc'
       dest: /usr/share/keyrings/helm.gpg
@@ -165,6 +168,7 @@
 
   - name: Ensure Helm repository exists
     when: ansible_os_family == "Debian"
+    become: yes
     ansible.builtin.apt_repository:
       repo: 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main'
       filename: helm.list
@@ -230,3 +234,5 @@
       - fclones
       - uv
       path: "{{ ansible_user_dir }}/.local"
+      
+      # NEED TO ADD INSTALL FOR lf, k9s, dua-cli
