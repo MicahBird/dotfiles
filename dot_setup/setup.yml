@@ -1,7 +1,12 @@
 - name: "Install Software and Setup"
   hosts: localhost
   connection: local
+  gather_facts: true
   tasks:
+
+  - name: Get my user
+    ansible.builtin.set_fact:
+      regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
   - name: Add .local/bin to bashrc PATH
     ansible.builtin.blockinfile:
@@ -16,44 +21,178 @@
         fi
         export PATH
 
+  - name: Update Packages (Debian)
+    when: ansible_os_family == "Debian"
+    become: yes
+    apt:
+      update_cache: yes
+      upgrade: yes
+
   - name: Install Packages
     become: yes 
     ansible.builtin.package:
       name:
+        - node
+        - python3
+        - zsh-autosuggestions
+        - htop
+        - tmux
+        - neovim
+        - autojump
         - kitty
         - zsh
         - neovim
-        - autojump
         - zsh-syntax-highlighting
         - zsh-autosuggestions
         - cmus
-        - yamllint
         - fzf
         - bat
         - trash-cli
         - imagemagick
+        - apt-transport-https 
+        - ca-certificates 
+        - curl 
+        - gnupg
+        - gcc
+        - cmake
+        - make
+        - rust
+        - cargo
+        # CLI Tools
+        - cmus
+        - fzf
+        - bat
+        - jq
+        - fzf
+        - ffmpeg
+        - exiftool
+        - ripgrep
+        - scrcpy
+        - espeak
+        - lf
+        - aria2
+        - p7zip
+        - hugo
+        - dua-cli
+        - tree
+        - zstd
+        - rclone
+        - tty-clock
+        - watch
+        - mpv
+        - ffmpeg
+        - fonts-font-awesome
+        - hugo
+        - foot
+        # - tesseract
+        # - tesseract-lang
+        - trash-cli
+        # Apps
+        - syncthing
+        - qalculate-gtk
+        - mpv
+        # Others
+        - hunspell
+        - sway
+        - swaylock
+        - swayidle
+        - waybar
+        - wl-clipboard
+        - slurp # Tools for screenshots
+        - grim # Tools for screenshots
+        # Linux utils
+        - flatpak
+        - gimp
       state: latest
-
-  - name: Install pip Packages
-    ansible.builtin.pip:
+  
+  # Install packages with certain name on Debian
+  - name: Install Debian Specific Packages
+    become: yes
+    when: ansible_os_family == "Debian"
+    ansible.builtin.apt:
       name:
-        - pynvim
+        - build-essential
+        - default-jdk
+        - libimage-exiftool-perl
+        - flatpak
+        - flatpak-xdg-utils
+        - xdg-desktop-portal
       state: latest
 
-  - name: Check Latest lf
-    uri:
-      url: https://api.github.com/repos/gokcehan/lf/releases/latest
-      return_content: true
-    register: lf_latest
+  # Install other packages not available in the default Ubuntu repos
+  - name: Ensure /etc/apt/keyrings directory exists
+    when: ansible_os_family == "Debian"
+    ansible.builtin.file:
+      path: /etc/apt/keyrings
+      state: directory
+      owner: root
+      mode: '755'
 
-  - name: "Installing lf {{ lf_latest.json.tag_name }}"
-    loop: "{{ lf_latest.json.assets }}"
-    when: "'lf-linux-amd64.tar.gz' in item.name"
-    unarchive:
-      remote_src: yes
-      src: "{{ item.browser_download_url }}"
-      dest: "{{ ansible_env.HOME }}/.local/bin/"
-      keep_newer: yes
+  - name: Ensure Visual Studio Code gpg key is in place
+    when: ansible_os_family == "Debian"
+    ansible.builtin.get_url:
+      url: 'https://packages.microsoft.com/keys/microsoft.asc'
+      dest: /etc/apt/keyrings/packages.microsoft.asc
+      owner: root
+      group: root
+      mode: '644'
+
+  - name: Ensure Visual Studio Code repository exists
+    when: ansible_os_family == "Debian"
+    ansible.builtin.apt_repository:
+      repo: 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main'
+      filename: vscode.list
+
+  - name: Ensure K8s gpg key is in place
+    when: ansible_os_family == "Debian"
+    ansible.builtin.get_url:
+      url: 'https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key'
+      dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      owner: root
+      group: root
+      mode: '644'
+
+  - name: Ensure K8s repository exists
+    when: ansible_os_family == "Debian"
+    ansible.builtin.apt_repository:
+      repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /'
+      filename: kubernetes.list
+
+  - name: Ensure Helm gpg key is in place
+    when: ansible_os_family == "Debian"
+    ansible.builtin.get_url:
+      url: 'https://baltocdn.com/helm/signing.asc'
+      dest: /usr/share/keyrings/helm.gpg
+      owner: root
+      group: root
+      mode: '644'
+
+  - name: Ensure Helm repository exists
+    when: ansible_os_family == "Debian"
+    ansible.builtin.apt_repository:
+      repo: 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main'
+      filename: helm.list
+
+  - name: Update Package list
+    when: ansible_os_family == "Debian"
+    become: yes
+    apt:
+      update_cache: yes
+
+  - name: Install Other Repo Debian Specific Packages
+    become: yes
+    when: ansible_os_family == "Debian"
+    ansible.builtin.apt:
+      name:
+        - kubectl
+        - code
+        - helm
+      state: latest
+  
+  - name: Change shell to zsh
+    ansible.builtin.user:
+     name: "{{ regular_user }}"
+     shell: /usr/bin/zsh 
 
   - name: Check Latest k9s
     uri:
@@ -74,18 +213,24 @@
     tags:
       - k9s
 
+  - name: Add the flathub flatpak repository remote
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-  - name: Check Latest onefetch
-    uri:
-      url: https://api.github.com/repos/o2sh/onefetch/releases/latest
-      return_content: true
-    register: onefetch_latest
+  - name: Install Flatpak Packages
+    community.general.flatpak:
+      name:
+        - io.gitlab.librewolf-community
+        - io.github.ungoogled_software.ungoogled_chromium
+        - com.usebottles.bottles
+        - com.obsproject.Studio
 
-  - name: "Installing onefetch {{ onefetch_latest.json.tag_name }}"
-    loop: "{{ onefetch_latest.json.assets }}"
-    when: "'onefetch-linux.tar.gz' in item.name"
-    unarchive:
-      remote_src: yes
-      src: "{{ item.browser_download_url }}"
-      dest: "{{ ansible_env.HOME }}/.local/bin/"
-      keep_newer: yes
+  - name: Install Rust packages
+    community.general.cargo:
+      name: 
+      - autotiling-rs
+      - fclones
+      - uv
+      path: "{{ ansible_user_dir }}/.local"

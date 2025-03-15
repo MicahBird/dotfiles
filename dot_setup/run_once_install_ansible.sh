@@ -29,6 +29,5 @@ esac
 
 
 echo "Ansible installation complete."
-
+ansible-galaxy collection install community.general
 ansible-playbook ~/.setup/setup.yml --ask-become-pass
-
