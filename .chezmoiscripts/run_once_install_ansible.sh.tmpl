@@ -30,4 +30,6 @@ esac
 
 echo "Ansible installation complete."
 ansible-galaxy collection install community.general
-ansible-playbook ~/.setup/setup.yml --ask-become-pass
+ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass
+# Not quite sure why this path didn't work, but it doesn't :/
+# ansible-playbook ~/.setup/setup.yml --ask-become-pass
