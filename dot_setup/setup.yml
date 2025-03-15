@@ -143,12 +143,11 @@
   - name: Ensure K8s gpg key is in place
     when: ansible_os_family == "Debian"
     become: yes
-    ansible.builtin.get_url:
-      url: 'https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key'
-      dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-      owner: root
-      group: root
-      mode: '644'
+    # This task can't be a get URL since it needs gpg to dearmor the key
+    ansible.builtin.shell: 
+      curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
+
 
   - name: Ensure K8s repository exists
     when: ansible_os_family == "Debian"
