@@ -145,9 +145,18 @@
     become: yes
     # This task can't be a get URL since it needs gpg to dearmor the key
     ansible.builtin.shell: 
-      curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-      sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
+      cmd: "curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+    args:
+      creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      warn: false  # Suppress the "consider using 'get_url' or 'uri'" warning
 
+  - name: Ensure correct permissions on K8s gpg Key
+    when: ansible_os_family == "Debian"
+    become: yes
+    ansible.builtin.file:
+      path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      mode: '0644'
+      state: file #Ensures that it's a file, not a symlink or something else.
 
   - name: Ensure K8s repository exists
     when: ansible_os_family == "Debian"
