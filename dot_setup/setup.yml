@@ -259,9 +259,14 @@
   - name: Install Rust packages
     community.general.cargo:
       name: 
-      - autotiling-rs
+      - dua-cli
       - fclones
-      - uv
       path: "{{ ansible_user_dir }}/.local"
       
-      # NEED TO ADD INSTALL FOR lf, k9s, dua-cli
+  - name: Install Rust packages (from git repos)
+    ansible.builtin.shell:  |
+      cargo install --git https://github.com/astral-sh/uv uv --root /home/{{ ansible_user_id }}/.local"
+      cargo install --git https://github.com/ammgws/autotiling-rs autotiling-rs --root /home/{{ ansible_user_id }}/.local"
+
+
+  # NEED TO ADD INSTALL FOR lf, k9s, dua-cli
