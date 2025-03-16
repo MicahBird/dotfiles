@@ -118,7 +118,8 @@
     become: yes
     ansible.builtin.systemd:
       name: ssh
-      state: disabled
+      state: stopped
+      enabled: no
       
   # Install other packages not available in the default Ubuntu repos
   - name: Ensure /etc/apt/keyrings directory exists
