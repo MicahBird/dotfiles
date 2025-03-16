@@ -24,6 +24,11 @@
       update_cache: yes
       upgrade: yes
 
+  - name: Set timezone to America/Denver
+    become: true
+    community.general.timezone:
+      name: America/Denver
+
   - name: Install Packages
     become: yes 
     ansible.builtin.package:
