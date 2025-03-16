@@ -238,18 +238,21 @@
       - k9s
 
   - name: Add the flathub flatpak repository remote
+    become: yes
     community.general.flatpak_remote:
       name: flathub
       state: present
       flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
   - name: Install Flatpak Packages
+    become: yes
     community.general.flatpak:
       name:
         - io.gitlab.librewolf-community
         - io.github.ungoogled_software.ungoogled_chromium
         - com.usebottles.bottles
         - com.obsproject.Studio
+    state: latest
 
   - name: Install Rust packages
     community.general.cargo:
