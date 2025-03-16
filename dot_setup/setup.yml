@@ -157,7 +157,6 @@
       cmd: "curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg"
     args:
       creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-      warn: false 
 
   - name: Ensure correct permissions on K8s gpg Key
     when: ansible_os_family == "Debian"
@@ -188,7 +187,6 @@
       sudo tee /etc/apt/sources.list.d/opentofu.list > /dev/null
       sudo chmod a+r /etc/apt/sources.list.d/opentofu.list
 
-  # Convert to command
   - name: Setup Helm repo
     when: ansible_os_family == "Debian"
     become: yes
