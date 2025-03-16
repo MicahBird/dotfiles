@@ -252,7 +252,7 @@
         - io.github.ungoogled_software.ungoogled_chromium
         - com.usebottles.bottles
         - com.obsproject.Studio
-    state: latest
+      state: latest
 
   - name: Install Rust packages
     community.general.cargo:
