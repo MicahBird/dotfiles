@@ -29,6 +29,7 @@
     ansible.builtin.package:
       name:
         - python3
+        - python3-pip
         - zsh-autosuggestions
         - htop
         - tmux
@@ -246,13 +247,14 @@
 
   - name: Install Flatpak Packages
     become: yes
-    community.general.flatpak:
+    flatpak:
       name:
         - io.gitlab.librewolf-community
         - io.github.ungoogled_software.ungoogled_chromium
         - com.usebottles.bottles
         - com.obsproject.Studio
       state: latest
+      remote: flathub
 
   - name: Install Rust packages
     community.general.cargo:
