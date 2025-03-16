@@ -148,7 +148,7 @@
       cmd: "curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg"
     args:
       creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-      warn: false  # Suppress the "consider using 'get_url' or 'uri'" warning
+      warn: false 
 
   - name: Ensure correct permissions on K8s gpg Key
     when: ansible_os_family == "Debian"
@@ -156,7 +156,7 @@
     ansible.builtin.file:
       path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
       mode: '0644'
-      state: file #Ensures that it's a file, not a symlink or something else.
+      state: file 
 
   - name: Ensure K8s repository exists
     when: ansible_os_family == "Debian"
@@ -168,12 +168,20 @@
   - name: Ensure Helm gpg key is in place
     when: ansible_os_family == "Debian"
     become: yes
-    ansible.builtin.get_url:
-      url: 'https://baltocdn.com/helm/signing.asc'
-      dest: /usr/share/keyrings/helm.gpg
-      owner: root
-      group: root
-      mode: '644'
+    # This task can't be a get URL since it needs gpg to dearmor the key
+    ansible.builtin.shell: 
+      cmd: "curl -fsSL https://baltocdn.com/helm/signing.asc | gpg --dearmor -o /etc/apt/keyrings/helm.gpg"
+    args:
+      creates: /etc/apt/keyrings/helm.gpg
+      warn: false 
+
+  - name: Ensure correct permissions on Helm gpg Key
+    when: ansible_os_family == "Debian"
+    become: yes
+    ansible.builtin.file:
+      path: /etc/apt/keyrings/helm.gpg
+      mode: '0644'
+      state: file 
 
   - name: Ensure Helm repository exists
     when: ansible_os_family == "Debian"
