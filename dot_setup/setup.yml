@@ -173,30 +173,27 @@
       repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /'
       filename: kubernetes.list
 
-  - name: Ensure Helm gpg key is in place
+  - name: Setup OpenTofu repo
     when: ansible_os_family == "Debian"
     become: yes
     # This task can't be a get URL since it needs gpg to dearmor the key
-    ansible.builtin.shell: 
-      cmd: "curl -fsSL https://baltocdn.com/helm/signing.asc | gpg --dearmor -o /etc/apt/keyrings/helm.gpg"
-    args:
-      creates: /etc/apt/keyrings/helm.gpg
-      warn: false 
+    ansible.builtin.shell: |
+      curl -fsSL https://get.opentofu.org/opentofu.gpg | sudo tee /etc/apt/keyrings/opentofu.gpg >/dev/null
+      curl -fsSL https://packages.opentofu.org/opentofu/tofu/gpgkey | sudo gpg --no-tty --batch --dearmor -o /etc/apt/keyrings/opentofu-repo.gpg >/dev/null
+      sudo chmod a+r /etc/apt/keyrings/opentofu.gpg /etc/apt/keyrings/opentofu-repo.gpg
+      echo \
+      "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
+      deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
+      sudo tee /etc/apt/sources.list.d/opentofu.list > /dev/null
+      sudo chmod a+r /etc/apt/sources.list.d/opentofu.list
 
-  - name: Ensure correct permissions on Helm gpg Key
+  # Convert to command
+  - name: Setup Helm repo
     when: ansible_os_family == "Debian"
     become: yes
-    ansible.builtin.file:
-      path: /etc/apt/keyrings/helm.gpg
-      mode: '0644'
-      state: file 
-
-  - name: Ensure Helm repository exists
-    when: ansible_os_family == "Debian"
-    become: yes
-    ansible.builtin.apt_repository:
-      repo: 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main'
-      filename: helm.list
+    ansible.builtin.shell:  |
+      curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 
   - name: Update Package list
     when: ansible_os_family == "Debian"
@@ -212,6 +209,7 @@
         - kubectl
         - code
         - helm
+        - tofu
       state: latest
   
   - name: Change shell to zsh
