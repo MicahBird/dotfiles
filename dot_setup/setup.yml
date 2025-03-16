@@ -112,7 +112,14 @@
         - xdg-desktop-portal
         - openssh-server
       state: latest
-
+  
+  - name: Disable ssh-server from running on startup
+    when: ansible_os_family == "Debian"
+    become: yes
+    ansible.builtin.systemd_service:
+      name: ssh
+      state: disabled
+      
   # Install other packages not available in the default Ubuntu repos
   - name: Ensure /etc/apt/keyrings directory exists
     when: ansible_os_family == "Debian"
