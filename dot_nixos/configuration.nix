@@ -209,12 +209,9 @@
   ];
   
   fonts.packages = with pkgs; [
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-      nerd-fonts.noto
-      nerd-fonts.hack
-      nerd-fonts.ubuntu
-      nerd-fonts.mplus
+    (nerdfonts.override { fonts = [ "Hack" "Ubuntu" ]; })
+     hack
+     ubuntu
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
