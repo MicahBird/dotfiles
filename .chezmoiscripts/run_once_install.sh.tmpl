@@ -4,17 +4,26 @@ install_on_fedora() {
     sudo dnf install -y ansible
 }
 
+install_on_nixos(){
+    # Just link the configuration.nix to be in /etc/nixos/configuration.nix
+    echo "Linking and removing current nixos config"
+    sudo rm /etc/nixos/configuration.nix
+    sudo ln -s {{ joinPath .chezmoi.sourceDir "dot_nixos/configuration.nix" | quote }} /etc/nixos/configuration.nix
+    exit 0
+}
+
 install_on_ubuntu() {
     sudo apt-get update
     sudo apt-get install -y python3 python3-pip
-    pip3 install ansible
+    pip3 insktall ansible
 }
 
-OS="$(uname -s)"
 case "${OS}" in
     Linux*)
         if [ -f /etc/fedora-release ]; then
             install_on_fedora
+        elif [ -f /etc/NIXOS ]; then
+            install_on_nixos
         elif [ -f /etc/lsb-release ]; then
             install_on_ubuntu
         else

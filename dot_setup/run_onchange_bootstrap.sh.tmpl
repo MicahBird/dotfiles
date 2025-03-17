@@ -1,7 +1,11 @@
+{{ if eq .chezmoi.osRelease.name "NixOS" }}
 #!/bin/bash
-
+sudo nixos-rebuild switch
+{{ else if eq .chezmoi.os "linux" }}
+#!/bin/bash
 # .setup/setup.yml hash: {{ include "dot_setup/setup.yml" | sha256sum }}
 
 if command -v ansible-playbook &> /dev/null; then
     ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass
 fi
+{{ end }}
