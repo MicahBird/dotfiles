@@ -18,24 +18,16 @@ install_on_ubuntu() {
     pip3 insktall ansible
 }
 
-case "${OS}" in
-    Linux*)
-        if [ -f /etc/fedora-release ]; then
-            install_on_fedora
-        elif [ -f /etc/NIXOS ]; then
-            install_on_nixos
-        elif [ -f /etc/lsb-release ]; then
-            install_on_ubuntu
-        else
-            echo "Unsupported Linux distribution"
-            exit 1
-        fi
-        ;;
-    *)
-        echo "Unsupported operating system: ${OS}"
-        exit 1
-        ;;
-esac
+if [ -f /etc/fedora-release ]; then
+    install_on_fedora
+elif [ -f /etc/NIXOS ]; then
+    install_on_nixos
+elif [ -f /etc/lsb-release ]; then
+    install_on_ubuntu
+else
+    echo "Unsupported Linux distribution"
+    exit 1
+fi
 
 
 echo "Ansible installation complete."
