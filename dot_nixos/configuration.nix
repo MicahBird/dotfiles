@@ -178,6 +178,7 @@
     hunspell
     cifs-utils
     chezmoi
+    file
     # Languages
     nodePackages_latest.nodejs
     python3
