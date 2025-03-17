@@ -207,6 +207,15 @@
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     mako # notification system developed by swaywm maintainer
   ];
+  
+  fonts.packages = with pkgs; [
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.noto
+      nerd-fonts.hack
+      nerd-fonts.ubuntu
+      nerd-fonts.mplus
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
