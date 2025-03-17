@@ -50,8 +50,6 @@
         - bat
         - trash-cli
         - imagemagick
-        - apt-transport-https 
-        - ca-certificates 
         - curl 
         - gnupg
         - gcc
@@ -117,6 +115,8 @@
         - flatpak-xdg-utils
         - xdg-desktop-portal
         - openssh-server
+        - apt-transport-https 
+        - ca-certificates 
       state: latest
   
   - name: Disable ssh-server from running on startup
@@ -264,6 +264,8 @@
       name: 
       - dua-cli
       - fclones
+      - workstyle
+      - shikane
       path: "{{ ansible_user_dir }}/.local"
       
   - name: Install Rust packages (from git repos)
