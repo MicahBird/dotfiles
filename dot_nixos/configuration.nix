@@ -180,9 +180,8 @@
     # Languages
     nodePackages_latest.nodejs
     python3
-    alacritty
+    foot
     android-tools
-    anki
     audacity
     firefox
     gimp
@@ -195,7 +194,7 @@
     usbimager
     vscode
     # Linux spesific utils
-    gnome.gnome-disk-utility
+    gnome-disk-utility
     openiscsi
     busybox
     # Window manager utils
