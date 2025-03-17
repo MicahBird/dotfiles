@@ -1,5 +1,5 @@
 {{ if eq .chezmoi.osRelease.name "NixOS" }}
-#!/bin/bash
+#!/usr/bin/env bash
 sudo nixos-rebuild switch
 {{ else if eq .chezmoi.os "linux" }}
 #!/bin/bash
