@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -47,7 +47,7 @@
   ### Services
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xwayland.enable = true;
+  programs.sway.xwayland.enable = true;
   services.displayManager.ly.enable = true;
   
   # enable sway window manager
@@ -201,6 +201,7 @@
     busybox
     # Window manager utils
     autotiling-rs
+    waybar
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
