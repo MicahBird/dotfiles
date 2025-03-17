@@ -177,6 +177,7 @@
     qalculate-gtk
     hunspell
     cifs-utils
+    chezmoi
     # Languages
     nodePackages_latest.nodejs
     python3
