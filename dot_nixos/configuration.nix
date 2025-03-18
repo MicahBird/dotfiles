@@ -122,6 +122,7 @@
   services.syncthing.configDir = "/home/snowflake/.config/syncthing";
 
   programs.zsh.enable = true;
+  programs.zsh.autosuggestions.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
