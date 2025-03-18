@@ -212,8 +212,6 @@
   
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Hack" "Ubuntu" ]; })
-     hack
-     ubuntu
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
