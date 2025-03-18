@@ -4,7 +4,15 @@ sudo nixos-rebuild switch
 
 # .setup/setup.yml hash: {{ include "dot_setup/setup.yml" | sha256sum }}
 if command -v ansible-playbook &> /dev/null; then
-    ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass --tags flatpak
+    read -p "Do you want to run the ansible playbook? [y/N] " response
+    case "$response" in
+        [yY]*) 
+            ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass --tags flatpak
+            ;;
+        *)
+            echo "Skipping ansible playbook."
+            ;;
+    esac
 fi
 {{ else if eq .chezmoi.os "linux" }}
 # .setup/setup.yml hash: {{ include "dot_setup/setup.yml" | sha256sum }}
