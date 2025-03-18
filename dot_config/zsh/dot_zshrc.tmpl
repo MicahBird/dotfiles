@@ -1,5 +1,4 @@
 # --- Source External Scripts ---
-
 {{ if eq .chezmoi.os "darwin" }}
 
 # Command Not Found (Homebrew - Macos)
@@ -26,7 +25,7 @@ fi
 {{ else if eq .chezmoi.osRelease.name "NixOS" }}
 
 # Autojump
-[ -f "/run/current-system/sw/share/site-functions/autojump.zsh" ] && source "/run/current-system/sw/share/site-functions/autojump.zsh"
+[ -f "/run/current-system/sw/share/zsh/site-functions/autojump.zsh" ] && source "/run/current-system/sw/share/zsh/site-functions/autojump.zsh"
 
 {{ else if eq .chezmoi.os "linux" }}
 
