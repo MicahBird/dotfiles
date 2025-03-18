@@ -132,6 +132,7 @@
     vim
     zsh-autosuggestions
     htop
+    ansible
     tmux
     neovim
     autojump
