@@ -1,0 +1,12 @@
+[[profile]]
+name = "single-display"
+
+[[profile.output]]
+enable = true
+search = ["m=24B2W1", "s=0x00000BF2", "v=AOC"]
+mode = "1920x1080@60Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+

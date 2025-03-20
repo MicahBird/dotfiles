@@ -200,14 +200,24 @@
     gnome-disk-utility
     openiscsi
     busybox
+    pavucontrol
+    networkmanagerapplet
     # Window manager utils
-    autotiling-rs
+    autotiling
     waybar
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
+    # mako # notification system developed by swaywm maintainer
     fuzzel
+    nwg-panel
+    nwg-look
+    wdisplays
+    shikane
+    swaynotificationcenter
+    # Fonts & Icons
+    ubuntu-sans
+    morewaita-icon-theme
   ];
   
   fonts.packages = with pkgs; [
@@ -230,9 +240,10 @@
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
   # services.openiscsi.enable = true;
   
+  services.playerctld.enable = true;
   services.keyd.enable = true;
   
   # keyd is the GOAT for being able to have capslock be control and ESC :)

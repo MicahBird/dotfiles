@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/nix/store/8vpg72ik2kgxfj05lc56hkqrdrfl8xi9-bash-5.2p37/bin/bash
 
 # This is a helper to the arch-updates.py executor
 # Add `<your-terminal-here> -e "au.sh; swaymsg reload"` as the On left click action
