@@ -66,10 +66,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-  };
   hardware.bluetooth.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -200,6 +196,7 @@
     moonlight-qt
     usbimager
     vscode
+    tesseract
     # Linux spesific utils
     gnome-disk-utility
     nautilus
@@ -220,6 +217,7 @@
     wdisplays
     shikane
     swaynotificationcenter
+    lxqt.lxqt-policykit
     # Fonts & Icons
     ubuntu-sans
     morewaita-icon-theme
@@ -250,7 +248,13 @@
   
   services.playerctld.enable = true;
   services.keyd.enable = true;
-  services.gvfs.enable = true; # Virtual filesystems for removeable media/etc
+  services.gvfs = {
+    enable = true;
+    package = lib.mkForce pkgs.gnome.gvfs;
+  };
+  services.gnome.glib-networking.enable = true;
+  security.polkit.enable = true;
+  programs.dconf.enable = true;
   services.blueman.enable = true;
   
   # keyd is the GOAT for being able to have capslock be control and ESC :)
