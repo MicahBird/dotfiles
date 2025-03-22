@@ -2,6 +2,7 @@
 
 properties:
   resources:
+
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: Git.Git
       directives:
@@ -81,4 +82,13 @@ properties:
       settings:
         id: Neovim.Neovim
         source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: LocalSend.LocalSend
+      directives:
+        description: Install LocalSend.LocalSend
+      settings:
+        id: LocalSend.LocalSend
+        source: winget
+
   configurationVersion: 0.2.0
