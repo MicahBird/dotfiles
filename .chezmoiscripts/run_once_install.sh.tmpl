@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+installWallpaperGenerator() {
+    if [ -f {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli ]; then
+            echo "wallpaper-generator-cli appears to already be installed..."
+	else
+        # Clone repos of programs that need to be built
+        TEMP_DIR=$(mktemp -d)
+        cd $TEMP_DIR
+	    git clone https://github.com/MicahBird/wallpaper-generator-cli-cpp.git
+	    cd wallpaper-generator-cli-cpp
+	    make -j $(nproc)
+	    mv -f wallpaper-generator-cli {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+	    chmod +x {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli
+	    cd $TEMP_DIR
+        fi
+}
+
 install_on_fedora() {
     sudo dnf install -y ansible
 }
@@ -33,5 +49,6 @@ fi
 echo "Ansible installation complete."
 ansible-galaxy collection install community.general
 ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass
+installWallpaperGenerator()
 # Not quite sure why this path didn't work, but it doesn't :/
 # ansible-playbook ~/.setup/setup.yml --ask-become-pass
