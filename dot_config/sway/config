@@ -104,6 +104,9 @@ input "type:keyboard" {
     # Start a terminal
     bindsym $mod+a exec $term
 
+    # Start file manager
+    bindsym $mod+q exec nautilus -w
+
     # Kill focused window
     bindsym $mod+Shift+q kill
 
