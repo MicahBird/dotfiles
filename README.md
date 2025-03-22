@@ -41,6 +41,10 @@ Then finally from Git Bash run:
 ```sh
 chezmoi init --apply MicahBird
 ```
+(Optionally) run Chris Titus Tech's Winutil:
+```powershell
+irm "https://christitus.com/win" | iex
+```
 
 ### Custom Functions/Aliases
 
