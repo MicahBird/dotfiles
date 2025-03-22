@@ -220,12 +220,16 @@
     lxqt.lxqt-policykit
     # Fonts & Icons
     ubuntu-sans
+    ubuntu-classic
     morewaita-icon-theme
+    colloid-gtk-theme
+    gnome-themes-extra
   ];
   
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Hack" "Ubuntu" ]; })
   ];
+  fonts.fontDir.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
