@@ -12,6 +12,35 @@ This repo includes my configs for:
 - Alacritty
 - lf
 - cmus
+*and more...*
+
+## Installing My Dotfiles
+
+My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles:
+
+> [!CAUTION]
+> Chezmoi will kick off bash scripts and Ansible playbooks when initializing, don't run this willy-nilly!
+
+### Unix
+```sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply MicahBird
+```
+
+### Windows
+```powershell
+Add-AppxPackage -Path "https://aka.ms/getwinget"
+winget install -e --id twpayne.chezmoi
+winget install -e --id Git.Git
+```
+Then put the following contents in `~/.config/chezmoi/chezmoi.toml` (so the script can execute for the first time):
+```toml
+[interpreters.sh]
+    command = "bash"
+```
+Then finally from Git Bash run:
+```sh
+chezmoi init --apply MicahBird
+```
 
 ### Custom Functions/Aliases
 
@@ -27,54 +56,6 @@ Notable features:
 
 #### mvim
 A minimal neovim configuration with bare essentials and sensible defaults.
-
-#### gvim
-An alias to quickly launch git fugitive in the current directory
-
-## Installing My Dotfiles
-My dotfiles are managed with **chezmoi**, so you just run one command to install chezmoi and apply my dotfiles:
-
-`sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin -- init --apply MicahBird`
-
-## Using the Setup Playbook (UNIX Systems)
-Included with my dotfiles is a ansible playbook that installs some packages and downloads lf, k9s, and onefetch to your .local/bin/
-
-After installing Ansible, run the ansible playbook with the following commands:
-```
-cd .setup/
-ansible-playbook -K setup.yml
-```
-
-## Running the Setup Playbook (Windows Systems)
-_The windows setup playbook currently doesn't set up a development environment, it just installs programs that I install with a fresh install._
-
-To run the Windows setup playbook, WinRM must be enabled. To enable it, open a Administrator Powershell and run the following commands to enable WinRM with HTTPS, using a self-signed certificate.
-
-```
-$url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-$file = "$env:temp\ConfigureRemotingForAnsible.ps1"
-
-(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-
-powershell.exe -ExecutionPolicy ByPass -File $file
-```
-
-### Writing the Hosts File
-Before running the playbook, you need to replace the IP address, user, and password in the `windows-hosts.ini` to suit your setup.
-
-### Running the Playbook
-To run the Windows setup playbook, run the following command:
-
-`ansible-playbook -i windows-hosts.ini windows-setup.yml`
-
-#### Disabling WinRM
-To disable WinRM after running the playbook, run the following commands in an Administrator Powershell. 
-```
-Stop-Service winrm
-Set-Service -Name winrm -StartupType Disabled
-winrm delete winrm/config/Listener?Address=*+Transport=HTTP
-winrm delete winrm/config/Listener?Address=*+Transport=HTTPS
-```
 
 ## Credits
 

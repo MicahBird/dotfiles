@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 {{ if ne .chezmoi.os "windows" }}
 installWallpaperGenerator() {
     if [ -f {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli ]; then
