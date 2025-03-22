@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+
+properties:
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git.Git
+      directives:
+        description: Install Git.Git
+      settings:
+        id: Git.Git
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: LibreWolf.LibreWolf
+      directives:
+        description: Install LibreWolf.LibreWolf
+      settings:
+        id: LibreWolf.LibreWolf
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Mozilla.Firefox
+      directives:
+        description: Install Mozilla.Firefox
+      settings:
+        id: Mozilla.Firefox
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.PowerToys
+      directives:
+        description: Install Microsoft.PowerToys
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.VisualStudioCode
+      directives:
+        description: Install Microsoft.VisualStudioCode
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: lars-berger.GlazeWM
+      directives:
+        description: Install lars-berger.GlazeWM
+      settings:
+        id: lars-berger.GlazeWM
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: twpayne.chezmoi
+      directives:
+        description: Install twpayne.chezmoi
+      settings:
+        id: twpayne.chezmoi
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Alacritty.Alacritty
+      directives:
+        description: Install Alacritty.Alacritty
+      settings:
+        id: Alacritty.Alacritty
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: eloston.ungoogled-chromium
+      directives:
+        description: Install eloston.ungoogled-chromium
+      settings:
+        id: eloston.ungoogled-chromium
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Neovim.Neovim
+      directives:
+        description: Install Neovim.Neovim
+      settings:
+        id: Neovim.Neovim
+        source: winget
+  configurationVersion: 0.2.0

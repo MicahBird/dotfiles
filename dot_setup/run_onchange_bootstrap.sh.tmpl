@@ -20,4 +20,7 @@ fi
 if command -v ansible-playbook &> /dev/null; then
     ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass
 fi
+{{ else if eq .chezmoi.os "windows" }}
+# .setup/setup-winget.yaml hash: {{ include "dot_setup/setup-winget.yaml" | sha256sum }}
+winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/setup-winget.yaml" | quote }}
 {{ end }}

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+{{ if ne .chezmoi.os "windows" }}
 installWallpaperGenerator() {
     if [ -f {{ .chezmoi.homeDir }}/.local/bin/wallpaper-generator-cli ]; then
             echo "wallpaper-generator-cli appears to already be installed..."
@@ -52,3 +53,8 @@ ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }}
 installWallpaperGenerator()
 # Not quite sure why this path didn't work, but it doesn't :/
 # ansible-playbook ~/.setup/setup.yml --ask-become-pass
+
+{{ else }}
+# Windows case
+winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/setup-winget.yaml" | quote }}
+{{ end }}
