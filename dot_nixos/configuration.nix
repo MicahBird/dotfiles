@@ -198,6 +198,7 @@
     vscode
     # Linux spesific utils
     gnome-disk-utility
+    thunar
     openiscsi
     busybox
     pavucontrol
@@ -240,11 +241,12 @@
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
   # services.openiscsi.enable = true;
   
   services.playerctld.enable = true;
   services.keyd.enable = true;
+  services.gvfs.enable = true; # Virtual filesystems for removeable media/etc
   
   # keyd is the GOAT for being able to have capslock be control and ESC :)
   services.keyd.keyboards = {
