@@ -33,6 +33,8 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export HISTFILE="$XDG_DATA_HOME/history"
+{{ if eq .chezmoi.os "linux" }}
 {{ if eq .chezmoi.osRelease.name "NixOS" }}
 source "$HOME/.config/zsh/.zshrc"
+{{ end }}
 {{ end }}
