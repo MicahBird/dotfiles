@@ -31,6 +31,7 @@ include /etc/sway/config-vars.d/*
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
+
 output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
@@ -231,31 +232,40 @@ input "type:keyboard" {
     bindsym XF86Search exec $menu
 #
 # Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+bindsym $mod+Shift+$ctrl+$left resize grow width 50px
+bindsym $mod+Shift+$ctrl+$right resize shrink width 50px
+bindsym $mod+Shift+$ctrl+$up resize grow height 50px
+bindsym $mod+Shift+$ctrl+$down resize shrink height 50px
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+# mode "resize" {
+#     # left will shrink the containers width
+#     # right will grow the containers width
+#     # up will shrink the containers height
+#     # down will grow the containers height
+#     bindsym $left resize shrink width 10px
+#     bindsym $down resize grow height 10px
+#     bindsym $up resize shrink height 10px
+#     bindsym $right resize grow width 10px
+# 
+#     # Ditto, with arrow keys
+#     bindsym Left resize shrink width 10px
+#     bindsym Down resize grow height 10px
+#     bindsym Up resize shrink height 10px
+#     bindsym Right resize grow width 10px
+# 
+#     # Return to default mode
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+#bindsym $mod+r mode "resize"
+
+# FUTURE ME PROBLEM, IMPLEMENT ALT-TAB menu with https://sr.ht/~tsdh/swayr/
 
 # Macos like screenshot keybind
 bindsym $ctrl+shift+4 exec grim -g "$(slurp -d)" - | wl-copy -t image/png
+# OCR keybind
+bindsym $mod+o exec grim -g "$(slurp -d)" - | wl-copy -t image/png && tmpdir=$(mktemp -d) && (cd "$tmpdir" && wl-paste -t image/png > out.png && tesseract -l eng out.png out && wl-copy < out.txt) && rm -rf "$tmpdir"
 
 # Set mouse cursor theme
 seat seat0 xcursor_theme BreezeX-Dark 28

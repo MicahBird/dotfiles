@@ -180,6 +180,7 @@
     cifs-utils
     chezmoi
     file
+    cargo
     # Languages
     nodePackages_latest.nodejs
     python3
