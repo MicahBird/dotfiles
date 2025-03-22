@@ -66,7 +66,11 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+  };
+  hardware.bluetooth.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -198,7 +202,7 @@
     vscode
     # Linux spesific utils
     gnome-disk-utility
-    thunar
+    nautilus
     openiscsi
     busybox
     pavucontrol
@@ -247,6 +251,7 @@
   services.playerctld.enable = true;
   services.keyd.enable = true;
   services.gvfs.enable = true; # Virtual filesystems for removeable media/etc
+  services.blueman.enable = true;
   
   # keyd is the GOAT for being able to have capslock be control and ESC :)
   services.keyd.keyboards = {
