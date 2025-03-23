@@ -1,4 +1,5 @@
 # --- Source External Scripts ---
+{{ if ne .chezmoi.os "windows" }}
 {{ if eq .chezmoi.os "darwin" }}
 
 # Command Not Found (Homebrew - Macos)
@@ -50,6 +51,7 @@ fi
 [ -f "/usr/share/autojump/autojump.zsh" ] && source "/usr/share/autojump/autojump.zsh"
 
 
+{{ end }}
 {{ end }}
 
 
