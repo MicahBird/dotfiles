@@ -17,12 +17,31 @@
   #       fi
   #       export PATH
 
+  - name: Purge snapd
+    apt:
+      name: 
+      - snapd
+      - snap
+      - gnome-software-plugin-snap
+      state: absent
+      purge: true
+      autoremove: true  # Remove dependencies that are no longer needed
+
   - name: Update Packages (Debian)
     when: ansible_os_family == "Debian"
     become: yes
     apt:
       update_cache: yes
       upgrade: yes
+
+  - name: Enable Universe/Multiverse Repos and hold snapd (Ubuntu)
+    become: yes
+    when: ansible_distribution_version == "25.04"
+    ansible.builtin.shell:  |
+      add-apt-repository universe
+      add-apt-repository multiverse
+      apt-mark hold snapd
+
 
   - name: Set timezone to America/Denver
     become: true
@@ -135,6 +154,14 @@
         - openssh-server
         - apt-transport-https 
         - ca-certificates 
+      state: latest
+
+  - name: Install Ubuntu Specific Packages
+    become: yes
+    when: ansible_distribution_version == "25.04"
+    ansible.builtin.apt:
+      name:
+        - fuzzel
       state: latest
   
   - name: Disable ssh-server from running on startup
@@ -304,8 +331,8 @@
       dest: /tmp/gtk4-layer-shell
 
   - name: Build gtk4-layer-shell
-    args:
     when: ansible_distribution_version == "22.04"
+    args:
       chdir: /tmp/gtk4-layer-shell
     ansible.builtin.shell:  |
       meson setup -Dexamples=true -Ddocs=true -Dtests=true build
