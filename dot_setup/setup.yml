@@ -27,13 +27,6 @@
       purge: true
       autoremove: true  # Remove dependencies that are no longer needed
 
-  - name: Update Packages (Debian)
-    when: ansible_os_family == "Debian"
-    become: yes
-    apt:
-      update_cache: yes
-      upgrade: yes
-
   - name: Enable Universe/Multiverse Repos and hold snapd (Ubuntu)
     become: yes
     when: ansible_distribution_version == "25.04"
@@ -42,6 +35,12 @@
       add-apt-repository multiverse
       apt-mark hold snapd
 
+  - name: Update Packages (Debian)
+    when: ansible_os_family == "Debian"
+    become: yes
+    apt:
+      update_cache: yes
+      upgrade: yes
 
   - name: Set timezone to America/Denver
     become: true
