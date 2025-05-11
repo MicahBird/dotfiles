@@ -133,9 +133,6 @@
         - valac
         - libgtk-3-dev
         - libgtk-4-dev
-        # ly (Display Manager)
-        - libpam0g-dev 
-        - libxcb-xkb-dev
       state: latest
   
   # Install packages with certain name on Debian
@@ -162,6 +159,9 @@
     ansible.builtin.apt:
       name:
         - fuzzel
+        - gtk4-layer-shell
+        - nwg-look
+        - wdisplays
       state: latest
   
   - name: Disable ssh-server from running on startup
@@ -346,14 +346,6 @@
     ansible.builtin.shell:  |
       ninja -C build install
       ldconfig
-
-  - name: Install gtk4-layer-shell
-    become: yes
-    when: ansible_distribution_version == "25.10"
-    ansible.builtin.apt:
-      name:
-        - gtk4-layer-shell
-      state: latest
 
   - name: Install swtchr
     community.general.cargo:
