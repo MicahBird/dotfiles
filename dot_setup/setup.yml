@@ -31,8 +31,8 @@
     become: yes
     when: ansible_distribution_version == "25.04"
     ansible.builtin.shell:  |
-      add-apt-repository universe
-      add-apt-repository multiverse
+      add-apt-repository universe -y
+      add-apt-repository multiverse -y
       apt-mark hold snapd
 
   - name: Update Packages (Debian)
