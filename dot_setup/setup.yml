@@ -269,8 +269,8 @@
       name: 
       - dua-cli
       - fclones
-      - workstyle
       - shikane
+      - swtchr
       path: "{{ ansible_user_dir }}/.local"
       
   - name: Install Rust packages (from git repos)

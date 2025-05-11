@@ -1,0 +1,8 @@
+urgent_first = true
+dismiss_on_release = true
+select_on_release = true
+release_keys = ["Alt_L"]
+[keymap]
+dismiss = "Escape"
+peek_next = "<Alt>Tab"
+peek_prev = "<Alt><Shift>Tab"

@@ -92,6 +92,7 @@ input "type:keyboard" {
   xkb_options ctrl:nocaps
   repeat_rate 85
   repeat_delay 300
+  xkb_numlock enabled
 }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -280,5 +281,15 @@ focus_follows_mouse no
 # Read `man 5 sway-bar` for more information about this section.
 # bar swaybar_command waybar
 exec_always nwg-panel
+
+# Start the swtchr daemon.
+exec_always ~/.cargo/bin/swtchrd
+
+# Set up keybinds to open the window switcher.
+bindsym $mod+Tab mode swtchr; exec ~/.cargo/bin/swtchr
+bindsym $mod+Shift+Tab mode swtchr; exec ~/.cargo/bin/swtchr
+
+# This is important! More information below.
+mode swtchr bindsym Backspace mode default
 
 include /etc/sway/config.d/*
