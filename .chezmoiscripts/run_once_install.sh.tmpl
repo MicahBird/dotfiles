@@ -31,7 +31,9 @@ install_on_nixos(){
 install_on_ubuntu() {
     sudo apt-get update
     sudo apt-get install -y python3 python3-pip
-    pip3 insktall ansible
+    # Ansible in the default repos is not up to date enough to use flatpak module; Install via pip:
+    export PATH="$PATH:$HOME/.local/bin"
+    pip3 install ansible
 }
 
 if [ -f /etc/fedora-release ]; then
@@ -49,10 +51,7 @@ fi
 echo "Ansible installation complete."
 ansible-galaxy collection install community.general
 ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }} --ask-become-pass
-installWallpaperGenerator()
-# Not quite sure why this path didn't work, but it doesn't :/
-# ansible-playbook ~/.setup/setup.yml --ask-become-pass
-
+installWallpaperGenerator
 {{ else }}
 # Windows case
 winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/setup-winget.yaml" | quote }}
