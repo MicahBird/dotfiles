@@ -43,7 +43,6 @@
         - zsh-autosuggestions
         - htop
         - tmux
-        - neovim
         - autojump
         - kitty
         - zsh
@@ -152,6 +151,7 @@
         - sway-notification-center
         - wdisplays
         - lf
+        - tree-sitter-cli
       state: latest
   
   - name: Disable ssh-server from running on startup
@@ -234,6 +234,12 @@
       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 
+  - name: Setup Neovim repo
+    when: ansible_os_family == "Debian"
+    become: yes
+    ansible.builtin.shell:  |
+      add-apt-repository ppa:neovim-ppa/stable -y
+
   - name: Update Package list
     when: ansible_os_family == "Debian"
     become: yes
@@ -249,6 +255,7 @@
         - code
         - helm
         - tofu
+        - neovim
       state: latest
   
   - name: Change shell to zsh
