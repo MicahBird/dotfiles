@@ -4,19 +4,6 @@
   gather_facts: true
   tasks:
 
-  # - name: Add .local/bin to bashrc PATH
-  #   ansible.builtin.blockinfile:
-  #     path: ~/.bashrc
-  #     marker: "# Managed by Ansible"
-  #     insertafter: "EOF"
-  #     block: |
-  #       # User specific environment
-  #       if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-  #       then
-  #           PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-  #       fi
-  #       export PATH
-
   - name: Purge snapd
     apt:
       name: 
@@ -60,7 +47,7 @@
         - autojump
         - kitty
         - zsh
-        - neovim
+        - vim
         - zsh-syntax-highlighting
         - zsh-autosuggestions
         - cmus
@@ -116,6 +103,7 @@
         - slurp # Tools for screenshots
         - grim # Tools for screenshots
         - playerctl
+        - network-manager-applet
         # Linux utils
         - flatpak
         - gimp
@@ -158,8 +146,10 @@
     ansible.builtin.apt:
       name:
         - fuzzel
-        - gtk4-layer-shell
+        - libgtk4-layer-shell-dev
+        - libgtk4-layer-shell0
         - nwg-look
+        - sway-notification-center
         - wdisplays
       state: latest
   
@@ -312,9 +302,8 @@
     community.general.cargo:
       name: 
       - dua-cli
-      - fclones
+      # - fclones # Failes on Ubuntu 25.04
       - shikane
-      - swtchr
       path: "{{ ansible_user_dir }}/.local"
       
   - name: Install Rust packages (from git repos)
@@ -388,12 +377,67 @@
       make install
       sudo systemctl enable --now keyd
 
+      # Pop_OS! Spesific
   - name: Install fuzzel
     when: ansible_distribution_version == "22.04"
     become: yes
     ansible.builtin.apt:
       deb: http://ftp.de.debian.org/debian/pool/main/f/fuzzel/fuzzel_1.8.2-2_amd64.deb
 
+  - name: Install Depenencies for nwg-panel
+    when: ansible_distribution_version == "25.04"
+    become: yes
+    ansible.builtin.apt:
+      name:
+        - git
+        - curl 
+        - bluez-tools 
+        - gir1.2-gtklayershell-0.1 
+        - libgtk-3-0 
+        - pulseaudio-utils 
+        - gir1.2-dbusmenu-gtk3-0.4 
+        - gir1.2-playerctl-2.0 
+        - playerctl 
+        - python3-dasbus 
+        - python3-gi-cairo 
+        - python3-i3ipc 
+        - python3-netifaces 
+        - python3-psutil 
+        - python3-requests 
+        - python3-setuptools 
+        - python3-wheel 
+        - sway-notification-center
+      state: latest
 
+  - name: Clone nwg-panel
+    tags:
+      - test
+    ansible.builtin.git:
+      repo: 'https://github.com/nwg-piotr/nwg-panel'
+      dest: /tmp/nwg-panel
+
+  - name: Clone nwg-icon-picker
+    tags:
+      - test
+    ansible.builtin.git:
+      repo: 'https://github.com/nwg-piotr/nwg-icon-picker'
+      dest: /tmp/nwg-icon-picker
    
+  - name: Install nwg-panel
+    tags:
+      - test
+    become: yes
+    args:
+      chdir: /tmp/nwg-panel
+    ansible.builtin.shell:  |
+      ./install.sh
+
+  - name: Install nwg-icon-picker
+    tags:
+      - test
+    become: yes
+    args:
+      chdir: /tmp/nwg-icon-picker
+    ansible.builtin.shell:  |
+      ./install.sh
   # NEED TO ADD INSTALL FOR lf, k9s, dua-cli
