@@ -31,8 +31,9 @@ include /etc/sway/config-vars.d/*
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
+exec ~/.local/bin/wallpaper-generator-cli -o ~/.config/wallpapers/desktop-wallpaper.png &
 
-output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.config/wallpapers/desktop-wallpaper.png fill
 #
 # Example configuration:
 #
@@ -283,11 +284,11 @@ focus_follows_mouse no
 exec_always nwg-panel
 
 # Start the swtchr daemon.
-exec_always ~/.cargo/bin/swtchrd
+exec_always ~/.local/bin/swtchrd
 
 # Set up keybinds to open the window switcher.
-bindsym $mod+Tab mode swtchr; exec ~/.cargo/bin/swtchr
-bindsym $mod+Shift+Tab mode swtchr; exec ~/.cargo/bin/swtchr
+bindsym $mod+Tab mode swtchr; exec ~/.local/bin/swtchr
+bindsym $mod+Shift+Tab mode swtchr; exec ~/.local/bin/swtchr
 
 # This is important! More information below.
 mode swtchr bindsym Backspace mode default
