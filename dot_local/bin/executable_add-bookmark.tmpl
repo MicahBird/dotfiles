@@ -1,0 +1,34 @@
+#!{{ lookPath "bash" }}
+{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") -}}
+  # Create a temporary file
+  temp_file=$(mktemp)
+  TAGS="$1"
+  error_prefix="[ERROR]"
+  buku -a $(pbpaste) "$TAGS" > "$temp_file" 2>&1
+  if [[ $(head -n 1 "$temp_file") == *"$error_prefix"* ]]; then
+    last_word=$(awk 'NF{print $NF}' "$temp_file")
+    buku -u $last_word --tag + "$TAGS"
+    echo "Bookmark Edited."
+  else
+    cat "$temp_file"
+    echo "Bookmark Added."
+  fi
+  rm "$temp_file"
+{{ else if eq .chezmoi.os "android" -}}
+  # Create a temporary file
+  temp_file=$(mktemp)
+  TAGS=$(termux-dialog text -t 'Tags' | jq '.text' -r)
+  error_prefix="[ERROR]"
+  buku -a "$url" "$TAGS" > "$temp_file" 2>&1
+  if [[ $(head -n 1 "$temp_file") == *"$error_prefix"* ]]; then
+    last_word=$(awk 'NF{print $NF}' "$temp_file")
+    echo "Bookmark already added. Editing tags."
+    echo "Last word of the file: $last_word"
+    buku -u $last_word --tag + "$TAGS"
+    termux-toast -g bottom "Bookmark Edited."
+  else
+    cat "$temp_file"
+    termux-toast -g bottom "Bookmark Added."
+  fi
+  rm "$temp_file"
+{{ end -}}
