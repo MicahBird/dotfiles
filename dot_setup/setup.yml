@@ -52,7 +52,6 @@
         - cmus
         - fzf
         - bat
-        - neovim
         - trash-cli
         - imagemagick
         - curl 
@@ -103,7 +102,7 @@
         - slurp # Tools for screenshots
         - grim # Tools for screenshots
         - playerctl
-        - network-manager-applet
+        - wdisplays
         # Linux utils
         - flatpak
         - gimp
@@ -150,9 +149,10 @@
         - libgtk4-layer-shell0
         - nwg-look
         - sway-notification-center
-        - wdisplays
         - lf
+        - network-manager-applet
         - tree-sitter-cli
+        - neovim
       state: latest
   
   - name: Disable ssh-server from running on startup
@@ -379,7 +379,7 @@
       make install
       sudo systemctl enable --now keyd
 
-      # Pop_OS! Spesific
+  # Pop_OS! Spesific
   - name: Install fuzzel
     when: ansible_distribution_version == "22.04"
     become: yes
@@ -442,4 +442,102 @@
       chdir: /tmp/nwg-icon-picker
     ansible.builtin.shell:  |
       ./install.sh
-  # NEED TO ADD INSTALL FOR lf, k9s, dua-cli
+
+  - name: Install Sway build dependencies
+    when: ansible_distribution_version == "22.04"
+    become: yes
+    ansible.builtin.apt:
+      name:
+        - wayland-protocols
+        - libwayland-dev
+        - libegl1-mesa-dev
+        - libgles2-mesa-dev
+        - libdrm-dev
+        - libgbm-dev
+        - libinput-dev
+        - libxkbcommon-dev
+        - libgudev-1.0-dev
+        - libpixman-1-dev
+        - libsystemd-dev
+        - cmake
+        - libpng-dev
+        - libavutil-dev
+        - libavcodec-dev
+        - libavformat-dev
+        - ninja-build
+        - meson
+        - libxcb-composite0-dev
+        - libxcb-icccm4-dev
+        - libxcb-image0-dev
+        - libxcb-render0-dev
+        - libxcb-xfixes0-dev
+        - libxkbcommon-dev
+        - libxcb-xinput-dev
+        - libx11-xcb-dev
+        - libjson-c-dev
+        - libpango1.0-dev
+        - libcairo2-dev
+        - libgdk-pixbuf2.0-dev
+        - scdoc
+        - swaybg
+        - swayidle
+        - swaylock
+      state: latest
+      
+  - name: Clone sway
+    when: ansible_distribution_version == "22.04"
+    ansible.builtin.git:
+      repo: 'https://github.com/swaywm/sway'
+      dest: /tmp/sway
+      version: 1.10.1
+
+  - name: Clone wlroots
+    when: ansible_distribution_version == "22.04"
+    ansible.builtin.git:
+      repo: 'https://gitlab.freedesktop.org/wlroots/wlroots'
+      dest: /tmp/wlroots
+      version: 0.18.2
+
+  - name: Build wlroots
+    when: ansible_distribution_version == "22.04"
+    args:
+      chdir: /tmp/wlroots
+    ansible.builtin.shell:  |
+      export PATH="$PATH:$HOME/.local/bin"
+      pip3 install --user meson==1.8.0
+      meson build
+      ninja -C build
+
+  - name: Install wlroots
+    become: yes
+    when: ansible_distribution_version == "22.04"
+    args:
+      chdir: /tmp/wlroots
+    ansible.builtin.shell:  |
+      ninja -C build install
+
+  - name: Build sway
+    when: ansible_distribution_version == "22.04"
+    args:
+      chdir: /tmp/sway
+    ansible.builtin.shell:  |
+      export PATH="$PATH:$HOME/.local/bin"
+      meson build
+      ninja -C build
+
+  - name: Install Sway
+    become: yes
+    when: ansible_distribution_version == "22.04"
+    args:
+      chdir: /tmp/sway
+    ansible.builtin.shell:  |
+      ninja -C build install
+
+  - name: install homebrew packages
+    when: ansible_distribution_version == "22.04"
+    become: yes
+    community.general.homebrew:
+      name:
+        - lf
+        - neovim
+      state: latest

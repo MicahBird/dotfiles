@@ -55,6 +55,7 @@ install_on_ubuntu() {
         
         echo "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
     else
         echo "Ubuntu version $DISTRIB_RELEASE detected. Installing Ansible via apt."
         sudo apt-get install -y ansible
