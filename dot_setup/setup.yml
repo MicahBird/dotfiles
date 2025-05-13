@@ -496,7 +496,7 @@
     ansible.builtin.git:
       repo: 'https://gitlab.freedesktop.org/wlroots/wlroots'
       dest: /tmp/wlroots
-      version: 0.18.2
+      version: 0.13.0
 
   - name: Build wlroots
     when: ansible_distribution_version == "22.04"
