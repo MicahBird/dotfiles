@@ -113,6 +113,7 @@ opt.number = true
 
 -- Load Plugins
 require("autoclose").setup()
+require("better_escape").setup()
 -- disable netrw 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -264,6 +265,9 @@ opt.linebreak = true
 opt.number = true
 opt.showmatch = true
 -- opt.showbreak = '+++'
+opt.wildmode = 'longest,list,full'
+opt.termguicolors = true
+opt.clipboard = 'unnamedplus'
 opt.ignorecase = true
 opt.smartcase = true
 opt.swapfile = false
@@ -278,6 +282,8 @@ opt.ruler = true
 opt.autochdir = true
 opt.autowriteall = true
 opt.undolevels = 1000
+opt.undofile = true
+cmd("set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/")
 opt.backspace = { 'indent', 'eol', 'start' }
 
 -- The next two settings ensure that line breaks and wrap work how writers, not coders, prefer it
