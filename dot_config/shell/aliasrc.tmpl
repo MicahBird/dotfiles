@@ -37,4 +37,5 @@ alias g="git" \
         chezcd="cd {{.chezmoi.sourceDir}}" \
         mvim="nvim -u ~/.config/nvim/minimal.lua" \
         wvim="nvim -u ~/.config/nvim/winit.lua" \
+        note='f() { wvim "$(date "+%m-%d-%y")-$1.md"; unset -f f; }; f' \
         nivm="nvim"
