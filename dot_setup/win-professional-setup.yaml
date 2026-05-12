@@ -40,6 +40,31 @@ properties:
         FileExtensions: Show
         HiddenFiles: Show
         RestartExplorer: True
+        
+    # --- Disable Animation Effects ---
+    - resource: PSDscResources/Registry
+      id: DisableAnimationEffects
+      directives:
+        description: Disable window minimize and maximize animations
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics
+        ValueName: MinAnimate
+        ValueData: '0'
+        ValueType: String
+        Ensure: Present
+
+    - resource: PSDscResources/Registry
+      id: DisableTaskbarAnimations
+      directives:
+        description: Disable Taskbar animations
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: TaskbarAnimations
+        ValueData: '0'
+        ValueType: Dword
+        Ensure: Present
 
     # --- Configure Windows Environment via Registry ---
     - resource: PSDscResources/Registry
