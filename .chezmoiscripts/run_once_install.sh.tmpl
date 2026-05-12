@@ -90,12 +90,14 @@ select opt in "${options[@]}"; do
   case $opt in
     Personal)
       echo "Performing: $opt setup..."
+      winget configure --enable
       winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/win-personal-setup.yaml" | quote }}
       # winget is tempermental so always just exit 0
       exit 0
       ;;
     Professional)
       echo "Performing: $opt setup..."
+      winget configure --enable
       winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/win-professional-setup.yaml" | quote }}
       # winget is tempermental so always just exit 0
       exit 0
