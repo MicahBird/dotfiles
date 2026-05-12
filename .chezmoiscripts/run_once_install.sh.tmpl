@@ -72,7 +72,7 @@ elif [ -f /etc/lsb-release ]; then
     install_on_ubuntu
 else
     echo "Unsupported Linux distribution"
-    exit 1
+    exit 0
 fi
 
 
@@ -82,7 +82,31 @@ ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_setup/setup.yml" | quote }}
 installWallpaperGenerator
 {{ else }}
 # Windows case
-winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/setup-winget.yaml" | quote }}
-# winget is tempermental so always just exit 0
-exit 0
+options=("Personal" "Professional" "Quit")
+
+PS3="Which kind of setup would you like to perform?: "
+
+select opt in "${options[@]}"; do
+  case $opt in
+    Personal)
+      echo "Performing: $opt setup..."
+      winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/win-personal-setup.yaml" | quote }}
+      # winget is tempermental so always just exit 0
+      exit 0
+      ;;
+    Professional)
+      echo "Performing: $opt setup..."
+      winget dsc --accept-configuration-agreements -f {{ joinPath .chezmoi.sourceDir "dot_setup/win-professional-setup.yaml" | quote }}
+      # winget is tempermental so always just exit 0
+      exit 0
+      ;;
+    Quit)
+      echo "Exiting."
+      break
+      ;;
+    *)
+      echo "Invalid option $REPLY"
+      ;;
+  esac
+done
 {{ end }}

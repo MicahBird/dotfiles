@@ -1,0 +1,172 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  assertions:
+    - resource: Microsoft.Windows.Developer/OsVersion
+      directives:
+        description: Verify min OS version requirement
+        allowPrerelease: true
+      settings:
+        MinVersion: '10.0.22000'
+  resources:
+    
+    # Configure basic Windows settings
+    - resource: Microsoft.Windows.Settings/WindowsSettings
+      id: config.windows
+      directives:
+        allowPrerelease: true
+        securityContext: elevated
+      settings:
+        AppColorMode: Dark
+        SystemColorMode: Dark
+        TaskbarAlignment: Left
+
+    - resource: Microsoft.Windows.Developer/Taskbar
+      id: config.windows.taskbar
+      directives:
+        allowPrerelease: true
+        securityContext: elevated
+      settings:
+        SearchboxMode: Hide
+        TaskViewButton: Hide
+        WidgetsButton: Hide
+
+    - resource: Microsoft.Windows.Developer/WindowsExplorer
+      id: config.windows.explorer
+      directives:
+        allowPrerelease: true
+        securityContext: elevated
+      settings:
+        FileExtensions: Show
+        HiddenFiles: Show
+        RestartExplorer: True
+
+    # --- Configure Windows Environment via Registry ---
+    - resource: PSDscResources/Registry
+      id: DisableBingSearch
+      directives:
+        description: Disable Bing Search in the Start Menu
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer
+        ValueName: DisableSearchBoxSuggestions
+        ValueData: '1'
+        ValueType: Dword
+        Ensure: Present
+
+    - resource: PSDscResources/Registry
+      id: DisableSuggestedApps
+      directives:
+        description: Remove suggested Apps from the Start Menu (Ads)
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SystemPaneSuggestionsEnabled
+        ValueData: '0'
+        ValueType: Dword
+        Ensure: Present
+
+    - resource: PSDscResources/Registry
+      id: DisableOneDriveStartup
+      directives:
+        description: Disable OneDrive on startup
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+        ValueName: OneDrive
+        Ensure: Absent
+
+
+    # --- Install Software ---
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git.Git
+      directives:
+        description: Install Git.Git
+      settings:
+        id: Git.Git
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Neovim.Neovim
+      directives:
+        description: Install Neovim.Neovim
+      settings:
+        id: Neovim.Neovim
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: firefox
+      directives:
+        description: Install Firefox
+        allowPrerelease: true
+      settings:
+        id: Mozilla.Firefox
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Microsoft.PowerToys
+      directives:
+        description: Install Microsoft.PowerToys
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Mozilla.Thunderbird
+      directives:
+        description: Install Mozilla.Thunderbird
+      settings:
+        id: Mozilla.Thunderbird
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: install.vs
+      directives:
+        description: Install Microsoft.VisualStudioCode
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+
+
+    # --- Configure IDEs ---
+    - resource: Microsoft.VSCode.Dsc/VSCodeExtension
+      dependsOn:
+        - install.vs
+      directives:
+        description: VSC add WSL
+        allowPrerelease: true
+      settings:
+        Name: ms-vscode-remote.remote-wsl
+        Exist: true
+        
+    - resource: Microsoft.VSCode.Dsc/VSCodeExtension
+      dependsOn:
+        - install.vs
+      directives:
+        description: VSC add Code Spell Checker
+        allowPrerelease: true
+      settings:
+        Name: streetsidesoftware.code-spell-checker
+        Exist: true
+
+    - resource: Microsoft.VSCode.Dsc/VSCodeExtension
+      dependsOn:
+        - install.vs
+      directives:
+        description: VSC add Neovim integration
+        allowPrerelease: true
+      settings:
+        Name: asvetliakov.vscode-neovim
+        Exist: true
+
+
+    # --- TODO Tasks (Configuration options not natively possible via DSC) ---
+    
+    # TODO: Change Firefox to be the default browser
+    # (Task requires manual configuration or specific deployment scripts due to Windows UserChoice Hash Protection)
+    
+    # TODO: Change all PDF and HTML files to open with Firefox
+    # (Task requires manual configuration or specific deployment scripts due to Windows UserChoice Hash Protection)
+    
+    # TODO: Remove all pinned taskbar apps and replace it with File Explorer and Firefox
+    # (Taskbar pinning manipulation is highly restricted in modern Windows and requires a custom LayoutModification.xml script)
