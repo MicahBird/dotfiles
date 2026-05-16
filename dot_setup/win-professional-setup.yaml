@@ -44,29 +44,31 @@ properties:
         RestartExplorer: True
         
     # --- Disable Animation Effects ---
-    - resource: PSDscResources/Registry
-      id: DisableAnimationEffects
-      directives:
-        description: Disable window minimize and maximize animations
-        allowPrerelease: true
-      settings:
-        Key: HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics
-        ValueName: MinAnimate
-        ValueData: '0'
-        ValueType: String
-        Ensure: Present
+    # Not working, must use force parameter
+    # - resource: PSDscResources/Registry
+    #   id: DisableAnimationEffects
+    #   directives:
+    #     description: Disable window minimize and maximize animations
+    #     allowPrerelease: true
+    #   settings:
+    #     Key: HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics
+    #     ValueName: MinAnimate
+    #     ValueData: '0'
+    #     ValueType: String
+    #     Ensure: Present
 
-    - resource: PSDscResources/Registry
-      id: DisableTaskbarAnimations
-      directives:
-        description: Disable Taskbar animations
-        allowPrerelease: true
-      settings:
-        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
-        ValueName: TaskbarAnimations
-        ValueData: '0'
-        ValueType: Dword
-        Ensure: Present
+    # Not working, must use force parameter
+    # - resource: PSDscResources/Registry
+    #   id: DisableTaskbarAnimations
+    #   directives:
+    #     description: Disable Taskbar animations
+    #     allowPrerelease: true
+    #   settings:
+    #     Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    #     ValueName: TaskbarAnimations
+    #     ValueData: '0'
+    #     ValueType: Dword
+    #     Ensure: Present
 
     # --- Configure Windows Environment via Registry ---
     - resource: PSDscResources/Registry
@@ -81,27 +83,29 @@ properties:
         ValueType: Dword
         Ensure: Present
 
-    - resource: PSDscResources/Registry
-      id: DisableSuggestedApps
-      directives:
-        description: Remove suggested Apps from the Start Menu (Ads)
-        allowPrerelease: true
-      settings:
-        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
-        ValueName: SystemPaneSuggestionsEnabled
-        ValueData: '0'
-        ValueType: Dword
-        Ensure: Present
+    # Not working, must use force parameter
+    # - resource: PSDscResources/Registry
+    #   id: DisableSuggestedApps
+    #   directives:
+    #     description: Remove suggested Apps from the Start Menu (Ads)
+    #     allowPrerelease: true
+    #   settings:
+    #     Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+    #     ValueName: SystemPaneSuggestionsEnabled
+    #     ValueData: '0'
+    #     ValueType: Dword
+    #     Ensure: Present
 
-    - resource: PSDscResources/Registry
-      id: DisableOneDriveStartup
-      directives:
-        description: Disable OneDrive on startup
-        allowPrerelease: true
-      settings:
-        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
-        ValueName: OneDrive
-        Ensure: Absent
+    # Not working, does not exist
+    # - resource: PSDscResources/Registry
+    #   id: DisableOneDriveStartup
+    #   directives:
+    #     description: Disable OneDrive on startup
+    #     allowPrerelease: true
+    #   settings:
+    #     Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+    #     ValueName: OneDrive
+    #     Ensure: Absent
 
 
     # --- Install Software ---
